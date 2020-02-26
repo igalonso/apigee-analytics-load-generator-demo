@@ -1,0 +1,15 @@
+/proxies/get-proxies.sh
+/proxies/Load-Generator-Catalog/target/*
+/proxies/Load-Generator-Catalog/target
+/proxies/Load-Generator-Checkout/target/*
+/proxies/Load-Generator-Checkout/target
+/proxies/Load-Generator-Loyalty/target/*
+/proxies/Load-Generator-Loyalty/target
+/proxies/Load-Generator-Recommendation/target/*
+/proxies/Load-Generator-Recommendation/target
+/proxies/Load-Generator-User/target/*
+/consumers/Dockerfile
+/consumers/_pycache_/*
+/consumers/_pycache_/
+start.sh
+stop.sh

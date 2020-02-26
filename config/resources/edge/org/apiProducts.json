@@ -1,0 +1,32 @@
+[
+    {
+        "name": "Load-Generator-Product-Admin",
+        "displayName": "Admin API Product",
+        "description": "This API Product contains all the APIs",
+        "apiResources": [
+            "/**",
+            "/"
+        ],
+        "approvalType": "auto",
+        "attributes": [
+            {
+                "name": "description",
+                "value": "json Product"
+            }
+        ],
+        "environments": [
+            "test"
+        ],
+        "proxies": [
+            "Load-Generator-Catalog",
+            "Load-Generator-Checkout",
+            "Load-Generator-Loyalty",
+            "Load-Generator-Recommendation",
+            "Load-Generator-Users"
+        ],
+        "quota": "10000",
+        "quotaInterval": "1",
+        "quotaTimeUnit": "month",
+        "scopes": []
+    }
+]
