@@ -70,6 +70,7 @@ r = requests.get(url = url_metadata,headers={'Metadata-Flavor': 'Google'})
 data = r.content
 print("We are in: " + str(data, 'utf-8'))
 request_region = str(data, 'utf-8')
+#request_region = "europe-west1"
 
 final_user = ""
 
@@ -193,4 +194,5 @@ class UserBehavior(TaskSet):
 
 class WebsiteUser(HttpLocust):
     task_set = UserBehavior
-    wait_time = between(5,15)
+    min_wait=5000
+    max_wait=9000
