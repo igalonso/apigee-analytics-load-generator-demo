@@ -13,7 +13,7 @@ APIGEE_URL=$7
 echo "---->DEPLOYING BACKENDS<-------"
 cd backend
 gcloud config set project $GPROJECT
-gcloud app deploy app.yaml --project $APPENGINE --quiet
+gcloud app deploy app.yaml --project $APPENGINE --promote --quiet
 
 #Deploying proxies
 echo "---->DEPLOYING PROXIES<-------"

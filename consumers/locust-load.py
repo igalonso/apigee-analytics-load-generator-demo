@@ -50,15 +50,16 @@ region7 = "us-west1"
 region8 = "asia-east1"
 region9 = "europe-west4"
 
-asianortheast2 = "hugh@startkaleo.com" # Consumer
-europewest3 = "grant@enterprise.com" # Consumer
-useast4 = "petsell@wrong.com" # Catalog
-australiasoutheast1 = "tomjones@enterprise.com" # Catalog
-northamericanortheast1 = "joew@bringiton.com" # Catalog & consumer
-southamericaeast1 = "acop@enterprise.com" # Catalog
+europewest1 = "dandee@enterprise.com" # Admin
+europenorth1 = "grant@enterprise.com" # Consumer
+uscentral1 = "petsell@wrong.com" # Catalog
+asianortheast1 = "hugh@startkaleo.com" # Consumer
+useast1 = "tomjones@enterprise.com" # Catalog
+useast4 = "joew@bringiton.com" # Catalog & consumer
+uswest1 = "acop@enterprise.com" # Catalog
 asiaeast1 = "barbg@enterprise.com" # Store & shopping
-uswest2 = "freds@bringiton.com" # Consumer
-europewest2 = "dandee@enterprise.com" # Admin
+europewest4 = "freds@bringiton.com" # Consumer
+
                 
 
 
@@ -66,32 +67,32 @@ europewest2 = "dandee@enterprise.com" # Admin
 url_metadata = "http://metadata.google.internal/computeMetadata/v1/instance/zone"
 
 
-r = requests.get(url = url_metadata,headers={'Metadata-Flavor': 'Google'})
-data = r.content
-print("We are in: " + str(data, 'utf-8'))
-request_region = str(data, 'utf-8')
-#request_region = "europe-west1"
+# r = requests.get(url = url_metadata,headers={'Metadata-Flavor': 'Google'})
+# data = r.content
+# print("We are in: " + str(data, 'utf-8'))
+# request_region = str(data, 'utf-8')
+request_region = "asia-east1"
 
 final_user = ""
 
 if region1 in request_region:
-    final_user=europewest2
+    final_user=europewest1
 elif region2 in request_region:
-    final_user=europewest3
+    final_user=europenorth1
 elif region3 in request_region:
-    final_user=useast4
+    final_user=uscentral1
 elif region4 in request_region:
-    final_user=asianortheast2
+    final_user=asianortheast1
 elif region5 in request_region:
-    final_user=australiasoutheast1
+    final_user=useast1
 elif region6 in request_region:
-    final_user=northamericanortheast1
+    final_user=useast4
 elif region7 in request_region:
-    final_user=southamericaeast1
+    final_user=uswest1
 elif region8 in request_region:
     final_user=asiaeast1
 elif region9 in request_region:
-    final_user=uswest2
+    final_user=europewest4
 else:
     raise Exception
 
@@ -104,9 +105,7 @@ print(apigee_url+"developers/"+final_user)
 
 app = requests.get(url = apigee_url+"developers/"+final_user,headers={'Authorization': "Basic "+token})
 print("This is my app: " +str(app))
-print(apigee_url+"developers/"+final_user+"/apps/"+app.json()['apps'][0])
 apiKey = requests.get(url = apigee_url+"developers/"+final_user+"/apps/"+app.json()['apps'][0],headers={'Authorization': "Basic "+token})
-#print(apiKey.json()['credentials'][0]['consumerKey'])
 appkey = apiKey.json()['credentials'][0]['consumerKey']
 
 def randomNum():
@@ -172,25 +171,24 @@ class UserBehavior(TaskSet):
         starting(self)
 
     print("This is the final user: " + final_user)
-    if final_user == asianortheast2:
+    if final_user == europewest1:
+        tasks = {loyaltyGetList: 1, loyaltyGet: 5,loyaltyPost: 1, recommendationGet: 3, recommendationPost: 2, recommendationGetList: 7, userPost: 1, userGet: 5, userPost: 1, checkoutGet: 3, checkoutGetList:1, checkoutPost: 5, catalogGet: 8, catalogGetList: 3, catalogPost: 1}
+    elif final_user == europenorth1:
         tasks = {loyaltyGetList: 1, loyaltyGet: 5,loyaltyPost: 1, recommendationGet: 3, recommendationPost: 2, recommendationGetList: 7, userGet: 6, userPost: 1}
-    elif final_user == europewest3:
+    elif final_user == uscentral1:
+        tasks = {catalogGet: 8, catalogGetList: 3,catalogPost: 1}
+    elif final_user == asianortheast1:
         tasks = {loyaltyGetList: 8, loyaltyGet: 3,loyaltyPost: 1, recommendationGet: 7, recommendationPost: 2, recommendationGetList: 7, userGet: 5, userPost: 1}
+    elif final_user == useast1:
+        tasks = {catalogGet: 8, catalogGetList: 3,catalogPost: 1}
     elif final_user == useast4:
-        tasks = {catalogGet: 8, catalogGetList: 3,catalogPost: 1}
-    elif final_user == australiasoutheast1:
-        tasks = {catalogGet: 8, catalogGetList: 3,catalogPost: 1}
-    elif northamericanortheast1 == australiasoutheast1:
         tasks = {catalogGet: 8, catalogGetList: 3,catalogPost: 1, loyaltyGetList: 3, loyaltyGet: 3,loyaltyPost: 1, recommendationGet: 7, recommendationPost: 2, recommendationGetList: 7, userGet: 5, userPost: 1}
-    elif final_user == southamericaeast1:
+    elif final_user == uswest1:
         tasks = {catalogGet: 8, catalogGetList: 3,catalogPost: 1}
     elif final_user == asiaeast1:
-        tasks = {catalogGet: 8, catalogGetList: 3,catalogPost: 1, checkoutGet: 3, checkoutGetList:1, checkoutPost: 5, recommendationGet: 7, recommendationPost: 2, recommendationGetList: 7}
-    elif final_user == uswest2:
+        tasks = {catalogGet: 8, catalogGetList: 2,catalogPost: 1, checkoutGet: 3, checkoutGetList:1, checkoutPost: 5, recommendationGet: 7, recommendationPost: 2, recommendationGetList: 7}
+    elif final_user == europewest4:
         tasks = {loyaltyGetList: 1, loyaltyGet: 5,loyaltyPost: 1, recommendationGet: 3, recommendationPost: 2, recommendationGetList: 7, userGet: 6, userPost: 1}
-    elif final_user == europewest2:
-        tasks = {loyaltyGetList: 1, loyaltyGet: 5,loyaltyPost: 1, recommendationGet: 3, recommendationPost: 2, recommendationGetList: 7, userGet: 6, userPost: 1, userGet: 5, userPost: 1, checkoutGet: 3, checkoutGetList:1, checkoutPost: 5, catalogGet: 8, catalogGetList: 3, catalogPost: 1}
-    
 
 class WebsiteUser(HttpLocust):
     task_set = UserBehavior
