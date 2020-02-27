@@ -41,3 +41,4 @@ sh delete-all.sh <APIGEE_USER> <APIGEE_PASS> <APIGEE_ORG> <APIGEE_ENV>
 - Use Locust Distributed
 - config.json hardcoded target
 - tag all resources and delete without hardcoding (delete-all.sh)
+- tweak product quotas.
