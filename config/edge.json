@@ -31,7 +31,7 @@
                 ],
                 "quota": "1000",
                 "quotaInterval": "1",
-                "quotaTimeUnit": "day",
+                "quotaTimeUnit": "hour",
                 "scopes": []
             },
             {
@@ -55,7 +55,7 @@
                 ],
                 "quota": "3000",
                 "quotaInterval": "1",
-                "quotaTimeUnit": "day",
+                "quotaTimeUnit": "hour",
                 "scopes": []
             },
             {
@@ -77,7 +77,7 @@
                 ],
                 "quota": "6000",
                 "quotaInterval": "1",
-                "quotaTimeUnit": "day",
+                "quotaTimeUnit": "hour",
                 "scopes": []
             },
             {
@@ -100,7 +100,7 @@
                 ],
                 "quota": "1000",
                 "quotaInterval": "1",
-                "quotaTimeUnit": "day",
+                "quotaTimeUnit": "hour",
                 "scopes": []
             },
             {
@@ -124,7 +124,7 @@
                 ],
                 "quota": "7000",
                 "quotaInterval": "1",
-                "quotaTimeUnit": "day",
+                "quotaTimeUnit": "hour",
                 "scopes": []
             }
         ],

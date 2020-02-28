@@ -35,6 +35,17 @@ gcloud compute instances delete load-locust-us-east4  --zone us-east4-b --quiet 
 gcloud compute instances delete load-locust-us-west1  --zone us-west1-b --quiet &
 gcloud compute instances delete load-locust-europe-west4 --zone europe-west4-b --quiet
 
+gcloud compute addresses delete load-locust-asia-east1-ip --region asia-east1 --quiet
+gcloud compute addresses delete load-locust-asia-northeast1-ip --region asia-northeast1 --quiet
+gcloud compute addresses delete load-locust-europe-north1-ip --region europe-north1 --quiet
+gcloud compute addresses delete load-locust-europe-west1-ip --region europe-west1 --quiet
+gcloud compute addresses delete load-locust-us-central1-ip --region us-central1 --quiet
+gcloud compute addresses delete load-locust-us-east1-ip --region us-east1 --quiet
+gcloud compute addresses delete load-locust-us-east4-ip --region us-east4 --quiet
+gcloud compute addresses delete load-locust-us-west1-ip --region us-west1 --quiet
+gcloud compute addresses delete load-locust-europe-west4-ip --region europe-west4 --quiet
+
+
 echo "----------Deleting revision proxies"
 curl --silent -X DELETE --header "Authorization: Basic $TOKEN" "https://api.enterprise.apigee.com/v1/organizations/$APIGEE_ORG/environments/$APIGEE_ENV/apis/Load-Generator-Catalog/revisions/1/deployments"
 curl --silent -X DELETE --header "Authorization: Basic $TOKEN" "https://api.enterprise.apigee.com/v1/organizations/$APIGEE_ORG/environments/$APIGEE_ENV/apis/Load-Generator-Users/revisions/1/deployments"
