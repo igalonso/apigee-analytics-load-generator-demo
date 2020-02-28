@@ -12,22 +12,22 @@ APIGEE_URL=$7
 #Deploying backend
 echo "---->DEPLOYING BACKENDS<-------"
 cd backend
-# gcloud config set project $GPROJECT
-# gcloud app deploy app.yaml --project $APPENGINE --promote --quiet
+gcloud config set project $GPROJECT
+gcloud app deploy app.yaml --project $APPENGINE --promote --quiet
 
 #Deploying proxies
 echo "---->DEPLOYING PROXIES<-------"
 cd ../proxies
 cd Load-Generator-Catalog
-# mvn install -Ptest -Dusername=$APIGEE_USER -Dpassword=$APIGEE_PASS -Dorg=$APIGEE_ORG -Denv=$APIGEE_ENV
-# cd ../Load-Generator-Checkout
-# mvn install -Ptest -Dusername=$APIGEE_USER -Dpassword=$APIGEE_PASS -Dorg=$APIGEE_ORG -Denv=$APIGEE_ENV
-# cd ../Load-Generator-Loyalty
-# mvn install -Ptest -Dusername=$APIGEE_USER -Dpassword=$APIGEE_PASS -Dorg=$APIGEE_ORG -Denv=$APIGEE_ENV
-# cd ../Load-Generator-Recommendation
-# mvn install -Ptest -Dusername=$APIGEE_USER -Dpassword=$APIGEE_PASS -Dorg=$APIGEE_ORG -Denv=$APIGEE_ENV
+mvn install -Ptest -Dusername=$APIGEE_USER -Dpassword=$APIGEE_PASS -Dorg=$APIGEE_ORG -Denv=$APIGEE_ENV
+cd ../Load-Generator-Checkout
+mvn install -Ptest -Dusername=$APIGEE_USER -Dpassword=$APIGEE_PASS -Dorg=$APIGEE_ORG -Denv=$APIGEE_ENV
+cd ../Load-Generator-Loyalty
+mvn install -Ptest -Dusername=$APIGEE_USER -Dpassword=$APIGEE_PASS -Dorg=$APIGEE_ORG -Denv=$APIGEE_ENV
+cd ../Load-Generator-Recommendation
+mvn install -Ptest -Dusername=$APIGEE_USER -Dpassword=$APIGEE_PASS -Dorg=$APIGEE_ORG -Denv=$APIGEE_ENV
 cd ../Load-Generator-User
-# mvn install -Ptest -Dusername=$APIGEE_USER -Dpassword=$APIGEE_PASS -Dorg=$APIGEE_ORG -Denv=$APIGEE_ENV
+mvn install -Ptest -Dusername=$APIGEE_USER -Dpassword=$APIGEE_PASS -Dorg=$APIGEE_ORG -Denv=$APIGEE_ENV
 
 
 #Deploy products
@@ -35,7 +35,7 @@ cd ../Load-Generator-User
 
 echo "---->DEPLOYING PRODUCTS, DEVELOPERS AND APPS<-------"
 cd ../../config
-# mvn install -Ptest -Dusername=$APIGEE_USER -Dpassword=$APIGEE_PASS -Dorg=$APIGEE_ORG -Denv=$APIGEE_ENV -Dapigee.config.options=create
+mvn install -Ptest -Dusername=$APIGEE_USER -Dpassword=$APIGEE_PASS -Dorg=$APIGEE_ORG -Denv=$APIGEE_ENV -Dapigee.config.options=create
 
 #Building docker image for Cloud Run
 cd ../consumers
