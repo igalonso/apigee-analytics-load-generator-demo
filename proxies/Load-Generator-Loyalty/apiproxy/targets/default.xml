@@ -10,6 +10,9 @@
     <Response/>
   </PostFlow>
   <HTTPTargetConnection>
-    <URL>https://igngar-test.appspot.com/loyalty</URL>
+    <LoadBalancer>
+      <Server name="Load-Generator-Loyalty-Target"/>
+    </LoadBalancer>
+    <Path>/loyalty</Path>
   </HTTPTargetConnection>
 </TargetEndpoint>

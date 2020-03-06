@@ -10,6 +10,9 @@
     <Response/>
   </PostFlow>
   <HTTPTargetConnection>
-    <URL>https://igngar-test.appspot.com/checkout</URL>
+    <LoadBalancer>
+      <Server name="Load-Generator-Checkout-Target"/>
+    </LoadBalancer>
+    <Path>/checkout</Path>
   </HTTPTargetConnection>
 </TargetEndpoint>

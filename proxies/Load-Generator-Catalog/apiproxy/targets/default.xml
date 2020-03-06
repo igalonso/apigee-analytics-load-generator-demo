@@ -10,6 +10,9 @@
     <Response/>
   </PostFlow>
   <HTTPTargetConnection>
-    <URL>https://igngar-test.appspot.com/catalog</URL>
+    <LoadBalancer>
+      <Server name="Load-Generator-Catalog-Target"/>
+    </LoadBalancer>
+    <Path>/catalog</Path>
   </HTTPTargetConnection>
 </TargetEndpoint>

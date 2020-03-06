@@ -35,7 +35,7 @@
                             <goal>specs</goal>
                         </goals>
                     </execution>
-                    <!-- <execution>
+                    <!--  <execution>
                         <id>create-config-cache</id>
                         <phase>install</phase>                        
                         <goals>
@@ -48,7 +48,7 @@
                         <goals>
                             <goal>references</goal>
                         </goals>
-                    </execution>
+                    </execution> -->
                     <execution>
                         <id>create-config-targetserver</id>
                         <phase>install</phase>                        
@@ -56,7 +56,7 @@
                             <goal>targetservers</goal>
                         </goals>
                     </execution>
-                    <execution>
+                    <!-- <execution>
                         <id>create-config-kvm</id>
                         <phase>install</phase>                        
                         <goals>

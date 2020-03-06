@@ -10,6 +10,9 @@
     <Response/>
   </PostFlow>
   <HTTPTargetConnection>
-    <URL>https://igngar-test.appspot.com/recommendation</URL>
+    <LoadBalancer>
+      <Server name="Load-Generator-Recommendation-Target"/>
+    </LoadBalancer>
+    <Path>/recommendation</Path>
   </HTTPTargetConnection>
 </TargetEndpoint>
