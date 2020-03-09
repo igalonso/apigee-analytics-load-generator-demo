@@ -13,3 +13,5 @@
 /consumers/_pycache_/
 start.sh
 stop.sh
+/backend/_pycache_/*
+/backend/services/_pycache_/*

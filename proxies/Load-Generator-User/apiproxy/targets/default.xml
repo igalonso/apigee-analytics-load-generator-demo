@@ -10,6 +10,9 @@
     <Response/>
   </PostFlow>
   <HTTPTargetConnection>
-    <URL>https://igngar-test.appspot.com/user</URL>
+    <LoadBalancer>
+      <Server name="Load-Generator-Users-Target"/>
+    </LoadBalancer>
+    <Path>/user</Path>
   </HTTPTargetConnection>
 </TargetEndpoint>
