@@ -15,4 +15,3 @@ start.sh
 stop.sh
 /backend/_pycache_/*
 /backend/services/_pycache_/*
-/backend/services/dispatch.yaml

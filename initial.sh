@@ -8,7 +8,8 @@ GPROJECT=$5
 APPENGINE=$6
 TOKEN=$(echo "$APIGEE_USER:$APIGEE_PASS\c" | base64)
 APIGEE_URL=$7
-RAND=$8
+APPENGINE_DOMAIN_NAME=$8
+RAND=$9
 
 #Deploying backend
 echo "---->DEPLOYING BACKENDS<-------"
@@ -27,20 +28,31 @@ cd ../users
 gcloud app deploy app.yaml --project $APPENGINE --promote --quiet
 cd ..
 #Set dispatch.yaml
-gcloud app deploy dispatch.yaml --project igngar-test --quiet
+sed -i '' "s/<domain>/$APPENGINE_DOMAIN_NAME/g" dispatch.yaml
+gcloud app deploy dispatch.yaml --project $GPROJECT --quiet
 
 #Deploying proxies
 echo "---->DEPLOYING PROXIES<-------"
 cd ../../proxies
 cd Load-Generator-Catalog
+sed -i '' "s/<environment>/$APIGEE_ENV/g" config.json
+sed -i '' "s/<gproject>/$GPROJECT/g" config.json
 mvn install -Ptest -Dusername=$APIGEE_USER -Dpassword=$APIGEE_PASS -Dorg=$APIGEE_ORG -Denv=$APIGEE_ENV
 cd ../Load-Generator-Checkout
+sed -i '' "s/<environment>/$APIGEE_ENV/g" config.json
+sed -i '' "s/<gproject>/$GPROJECT/g" config.json
 mvn install -Ptest -Dusername=$APIGEE_USER -Dpassword=$APIGEE_PASS -Dorg=$APIGEE_ORG -Denv=$APIGEE_ENV
 cd ../Load-Generator-Loyalty
+sed -i '' "s/<environment>/$APIGEE_ENV/g" config.json
+sed -i '' "s/<gproject>/$GPROJECT/g" config.json
 mvn install -Ptest -Dusername=$APIGEE_USER -Dpassword=$APIGEE_PASS -Dorg=$APIGEE_ORG -Denv=$APIGEE_ENV
 cd ../Load-Generator-Recommendation
+sed -i '' "s/<environment>/$APIGEE_ENV/g" config.json
+sed -i '' "s/<gproject>/$GPROJECT/g" config.json
 mvn install -Ptest -Dusername=$APIGEE_USER -Dpassword=$APIGEE_PASS -Dorg=$APIGEE_ORG -Denv=$APIGEE_ENV
 cd ../Load-Generator-User
+sed -i '' "s/<environment>/$APIGEE_ENV/g" config.json
+sed -i '' "s/<gproject>/$GPROJECT/g" config.json
 mvn install -Ptest -Dusername=$APIGEE_USER -Dpassword=$APIGEE_PASS -Dorg=$APIGEE_ORG -Denv=$APIGEE_ENV
 
 
@@ -49,6 +61,8 @@ mvn install -Ptest -Dusername=$APIGEE_USER -Dpassword=$APIGEE_PASS -Dorg=$APIGEE
 
 echo "---->DEPLOYING PRODUCTS, DEVELOPERS AND APPS<-------"
 cd ../../config
+sed -i '' "s/<domain>/$APPENGINE_DOMAIN_NAME/g" edge.json
+sed -i '' "s/<environment>/$APIGEE_ENV/g" edge.json
 mvn install -Ptest -Dusername=$APIGEE_USER -Dpassword=$APIGEE_PASS -Dorg=$APIGEE_ORG -Denv=$APIGEE_ENV -Dapigee.config.options=create
 
 #Building docker image for Cloud Run
@@ -77,7 +91,7 @@ sleep 60
 ADDR=$(gcloud compute addresses describe load-locust-asia-east1-ip-$(echo $RAND) --region asia-east1 --format json | jq -r '.address')
 gcloud compute instances create-with-container $(echo "load-locust-asia-east1-"$RAND) --machine-type=f1-micro --container-image gcr.io/$GPROJECT/load-test --address $ADDR --zone asia-east1-b 
 ADDR=$(gcloud compute addresses describe load-locust-asia-northeast1-ip-$(echo $RAND) --region asia-northeast1 --format json | jq -r '.address')
-gcloud compute instances create-with-container $(echo "load-locust-asia-northeast1"$RAND)  --machine-type=f1-micro --container-image gcr.io/$GPROJECT/load-test --address $ADDR --zone asia-northeast1-b
+gcloud compute instances create-with-container $(echo "load-locust-asia-northeast1-"$RAND)  --machine-type=f1-micro --container-image gcr.io/$GPROJECT/load-test --address $ADDR --zone asia-northeast1-b
 ADDR=$(gcloud compute addresses describe load-locust-europe-north1-ip-$(echo $RAND) --region europe-north1 --format json | jq -r '.address')
 gcloud compute instances create-with-container $(echo "load-locust-europe-north1-"$RAND)  --machine-type=f1-micro --container-image gcr.io/$GPROJECT/load-test --address $ADDR --zone europe-north1-b
 ADDR=$(gcloud compute addresses describe load-locust-europe-west1-ip-$(echo $RAND) --region europe-west1 --format json | jq -r '.address')
