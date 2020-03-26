@@ -134,7 +134,7 @@
                     "Load-Generator-Checkout",
                     "Load-Generator-Catalog"
                 ],
-                "quota": "1000",
+                "quota": "50",
                 "quotaInterval": "1",
                 "quotaTimeUnit": "hour",
                 "scopes": []
