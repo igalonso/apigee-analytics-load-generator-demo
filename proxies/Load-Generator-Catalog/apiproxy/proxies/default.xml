@@ -16,7 +16,7 @@
             <Description>Post in catalog</Description>
             <Request/>
             <Response/>
-            <Condition>request.verb = "POST"</Condition>
+            <Condition>(proxy.pathsuffix MatchesPath "/**" and request.verb = "POST")</Condition>
         </Flow>
         <Flow name="GET_CATALOG">
             <Description>Get in Catalog</Description>
@@ -26,7 +26,7 @@
                 </Step>
             </Request>
             <Response/>
-            <Condition>request.verb = "GET"</Condition>
+            <Condition>(proxy.pathsuffix MatchesPath "/**" and request.verb = "GET")</Condition>
         </Flow>
     </Flows>
     <PostFlow name="PostFlow">
