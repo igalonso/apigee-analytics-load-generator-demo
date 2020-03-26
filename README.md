@@ -50,8 +50,8 @@ All assets in this project start with Load-Generator.
 5) Agent type
 
 ## Installation:
-Note: You need to have gcloud-sdk installed, maven plugins, and docker.
-Note 2: You need to own a domain name to use as backend DNS domain names.
+- Note: You need to have gcloud-sdk installed, maven plugins, and docker.
+- Note 2: You need to own a domain name to use as backend DNS domain names.
 
 ```bash
 sh initial.sh <APIGEE_USER> <APIGEE_PASS> <APIGEE_ORG> <APIGEE_ENV> <GPROJECT> <APPENGINE> <APIGEE_URL>  <APPENGINE_DOMAIN_NAME> <UUID>
