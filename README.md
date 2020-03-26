@@ -57,7 +57,7 @@ All assets in this project start with Load-Generator.
 sh initial.sh <APIGEE_USER> <APIGEE_PASS> <APIGEE_ORG> <APIGEE_ENV> <GPROJECT> <APPENGINE> <APIGEE_URL>  <APPENGINE_DOMAIN_NAME> <UUID>
 ```
 
-<UUID> is a random number to be consistent when deleting.
+*UUID* is a random number to be consistent when deleting.
 
 to delete:
 
