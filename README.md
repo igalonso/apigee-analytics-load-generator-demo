@@ -14,6 +14,8 @@ All assets in this project start with Load-Generator.
 
 **Demo Product/Proxies relationship**
 ![imgs/diagram-proxies-products.png](imgs/diagram-proxies-products.png)
+
+
 **Demo Product/Apps relationship with quotas**
 ![imgs/diagram-products-apps.png](imgs/diagram-products-apps.png)
 
