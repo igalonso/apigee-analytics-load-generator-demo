@@ -1,8 +1,3 @@
-Apigee Analytics Load Generator Demo
-
-* * *
-
-
 # Introduction
 
 This project aims to showcase Apigee monitoring features by generating distributed traffic across 5 proxies:
