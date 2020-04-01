@@ -23,8 +23,6 @@ The architecture looks like this:
 
 This traffic ensures that there is constant hit on cache, errors and different apps built on top of API Products.
 
-### You don’t need to deploy this demo to use it! You can request access to **emea-poc13** Apigee organization and showcase it from there. 
-
 All assets in this project start with Load-Generator except apps.
 
 Demo Product/Proxies relationship ![imgs/image alt text](imgs/image_1.png)
@@ -73,10 +71,6 @@ With this demo you should be able to showcase the following use cases:
 # Getting set up
 
 Duration: 45:00
-
-## Intro
-
-If you decide to go by deploying this solution in your own organization, keep in mind that you will need to wait at least 24 hours to see analytics coming into the platform correctly. If you have an urgent need for an analytics demo, please go emea-poc13 org (ask igngar@, tyayers@, janeiro@ or send an email to [googees@google.com](mailto:googees@google.com)).  
 
 ## Requirements
 
