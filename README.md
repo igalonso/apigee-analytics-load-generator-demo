@@ -69,7 +69,7 @@ Duration: 45:00
 
 ## Requirements
 
-1. A domain name for your backend services. You can use services like [godaddy](https://www.godaddy.com/) or request one [here.](https://sites.google.com/corp/google.com/dns/using)
+1. A domain name for your backend services. You can use services like [godaddy](https://www.godaddy.com/).
 
 2. A [Google Cloud Project](https://console.cloud.google.com/) with a valid Billing.
 
