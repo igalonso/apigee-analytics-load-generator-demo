@@ -1,5 +1,5 @@
 #!/bin/bash
-# . initial.sh <APIGEE_USER> <APIGEE_PASS> <APIGEE_ORG> <APIGEE_ENV> <UUID>
+# . delete-all.sh <APIGEE_USER> <APIGEE_PASS> <APIGEE_ORG> <APIGEE_ENV> <UUID>
 
 USR=$1
 PASS=$2
