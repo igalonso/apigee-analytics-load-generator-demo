@@ -1,6 +1,9 @@
+#!/bin/bash
+# . initial.sh <APIGEE_USER> <APIGEE_PASS> <APIGEE_ORG> <APIGEE_ENV> <UUID>
+
 USR=$1
 PASS=$2
-TOKEN=$(echo "$USR:$PASS\c" | base64)
+TOKEN=$(printf "$USR:$PASS" | base64)
 APIGEE_ORG=$3
 APIGEE_ENV=$4
 RAND=$5
@@ -13,7 +16,7 @@ for dev in ${arr[@]}; do
     DEVS_APPS=$(curl --silent -X GET --header "Authorization: Basic $TOKEN" "https://api.enterprise.apigee.com/v1/organizations/$APIGEE_ORG/developers/$dev/apps") > /dev/null
     echo "Has these Apps: "$DEVS_APPS
     echo "----------Deleting apps"
-    for app in $(echo "${DEVS_APPS}" | jq -r '.[]'); do
+    for app in $(echo $DEVS_APPS | grep -oP '(?<=")[^"]+(?=")'); do
         curl --silent -X DELETE --header "Authorization: Basic $TOKEN" "https://api.enterprise.apigee.com/v1/organizations/$APIGEE_ORG/developers/${dev}/apps/${app}" > /dev/null
     done
     curl --silent -X DELETE --header "Authorization: Basic $TOKEN" "https://api.enterprise.apigee.com/v1/organizations/$APIGEE_ORG/developers/${dev}" > /dev/null
@@ -32,19 +35,19 @@ gcloud compute instances delete $(echo "load-locust-europe-north1-"$RAND) --zone
 gcloud compute instances delete $(echo "load-locust-europe-west1-"$RAND) --zone europe-west1-b --quiet &
 gcloud compute instances delete $(echo "load-locust-us-central1-"$RAND) --zone us-central1-b --quiet &
 gcloud compute instances delete $(echo "load-locust-us-east1-"$RAND) --zone us-east1-b  --quiet &
-gcloud compute instances delete $(echo "load-locust-us-east4-"$RAND)  --zone us-east4-b --quiet &
-gcloud compute instances delete $(echo "load-locust-us-west1-"$RAND)  --zone us-west1-b --quiet &
+gcloud compute instances delete $(echo "load-locust-us-east4-"$RAND) --zone us-east4-b --quiet &
+gcloud compute instances delete $(echo "load-locust-us-west1-"$RAND) --zone us-west1-b --quiet &
 gcloud compute instances delete $(echo "load-locust-europe-west4-"$RAND) --zone europe-west4-b --quiet
 
-gcloud compute addresses delete $(echo "load-locust-asia-east1-ip-"$RAND)  --region asia-east1 --quiet
-gcloud compute addresses delete $(echo "load-locust-asia-northeast1-ip-"$RAND)  --region asia-northeast1 --quiet
-gcloud compute addresses delete $(echo "load-locust-europe-north1-ip-"$RAND)  --region europe-north1 --quiet
-gcloud compute addresses delete $(echo "load-locust-europe-west1-ip-"$RAND)  --region europe-west1 --quiet
-gcloud compute addresses delete $(echo "load-locust-us-central1-ip-"$RAND)  --region us-central1 --quiet
-gcloud compute addresses delete $(echo "load-locust-us-east1-ip-"$RAND)  --region us-east1 --quiet
-gcloud compute addresses delete $(echo "load-locust-us-east4-ip-"$RAND)  --region us-east4 --quiet
-gcloud compute addresses delete $(echo "load-locust-us-west1-ip-"$RAND)  --region us-west1 --quiet
-gcloud compute addresses delete $(echo "load-locust-europe-west4-ip-"$RAND)  --region europe-west4 --quiet
+gcloud compute addresses delete $(echo "load-locust-asia-east1-ip-"$RAND) --region asia-east1 --quiet
+gcloud compute addresses delete $(echo "load-locust-asia-northeast1-ip-"$RAND) --region asia-northeast1 --quiet
+gcloud compute addresses delete $(echo "load-locust-europe-north1-ip-"$RAND) --region europe-north1 --quiet
+gcloud compute addresses delete $(echo "load-locust-europe-west1-ip-"$RAND) --region europe-west1 --quiet
+gcloud compute addresses delete $(echo "load-locust-us-central1-ip-"$RAND) --region us-central1 --quiet
+gcloud compute addresses delete $(echo "load-locust-us-east1-ip-"$RAND) --region us-east1 --quiet
+gcloud compute addresses delete $(echo "load-locust-us-east4-ip-"$RAND) --region us-east4 --quiet
+gcloud compute addresses delete $(echo "load-locust-us-west1-ip-"$RAND) --region us-west1 --quiet
+gcloud compute addresses delete $(echo "load-locust-europe-west4-ip-"$RAND) --region europe-west4 --quiet
 
 
 echo "----------Deleting revision proxies"
@@ -60,3 +63,10 @@ curl --silent -X DELETE --header "Authorization: Basic $TOKEN" "https://api.ente
 curl --silent -X DELETE --header "Authorization: Basic $TOKEN" "https://api.enterprise.apigee.com/v1/organizations/$APIGEE_ORG/apis/Load-Generator-Recommendation"
 curl --silent -X DELETE --header "Authorization: Basic $TOKEN" "https://api.enterprise.apigee.com/v1/organizations/$APIGEE_ORG/apis/Load-Generator-Loyalty"
 curl --silent -X DELETE --header "Authorization: Basic $TOKEN" "https://api.enterprise.apigee.com/v1/organizations/$APIGEE_ORG/apis/Load-Generator-Checkout"
+
+echo "----------Deleting Target Servers"
+curl --silent -X DELETE --header "Authorization: Basic $TOKEN" "https://api.enterprise.apigee.com/v1/organizations/$APIGEE_ORG/environments/$APIGEE_ENV/targetservers/Load-Generator-Catalog-Target"
+curl --silent -X DELETE --header "Authorization: Basic $TOKEN" "https://api.enterprise.apigee.com/v1/organizations/$APIGEE_ORG/environments/$APIGEE_ENV/targetservers/Load-Generator-Checkout-Target"
+curl --silent -X DELETE --header "Authorization: Basic $TOKEN" "https://api.enterprise.apigee.com/v1/organizations/$APIGEE_ORG/environments/$APIGEE_ENV/targetservers/Load-Generator-Loyalty-Target"
+curl --silent -X DELETE --header "Authorization: Basic $TOKEN" "https://api.enterprise.apigee.com/v1/organizations/$APIGEE_ORG/environments/$APIGEE_ENV/targetservers/Load-Generator-Recommendation-Target"
+curl --silent -X DELETE --header "Authorization: Basic $TOKEN" "https://api.enterprise.apigee.com/v1/organizations/$APIGEE_ORG/environments/$APIGEE_ENV/targetservers/Load-Generator-Users-Target"
