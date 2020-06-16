@@ -16,7 +16,7 @@ for dev in ${arr[@]}; do
     DEVS_APPS=$(curl --silent -X GET --header "Authorization: Basic $TOKEN" "https://api.enterprise.apigee.com/v1/organizations/$APIGEE_ORG/developers/$dev/apps") > /dev/null
     echo "Has these Apps: "$DEVS_APPS
     echo "----------Deleting apps"
-    for app in $(echo $DEVS_APPS | grep -oP '(?<=")[^"]+(?=")'); do
+    for app in $(echo $DEVS_APPS | jq -r '.[]'); do
         curl --silent -X DELETE --header "Authorization: Basic $TOKEN" "https://api.enterprise.apigee.com/v1/organizations/$APIGEE_ORG/developers/${dev}/apps/${app}" > /dev/null
     done
     curl --silent -X DELETE --header "Authorization: Basic $TOKEN" "https://api.enterprise.apigee.com/v1/organizations/$APIGEE_ORG/developers/${dev}" > /dev/null

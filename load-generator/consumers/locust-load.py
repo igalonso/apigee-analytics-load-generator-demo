@@ -71,7 +71,11 @@ r = requests.get(url = url_metadata,headers={'Metadata-Flavor': 'Google'})
 data = r.content
 print("We are in: " + str(data, 'utf-8'))
 request_region = str(data, 'utf-8')
+
+
 # request_region = "asia-east1"
+# request_region = region1
+
 
 final_user = ""
 
