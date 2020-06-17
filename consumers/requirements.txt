@@ -1,3 +1,3 @@
-locustio
-Flask
+locustio==0.9.0
+Flask==1.1.1
 gunicorn
