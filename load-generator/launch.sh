@@ -1,5 +1,3 @@
-# sh initial.sh <APIGEE_USER> <APIGEE_PASS> <APIGEE_ORG> <APIGEE_ENV> <GPROJECT> <APPENGINE> <APIGEE_URL> <APPENGINE_DOMAIN_NAME> <UUID>
-
 APIGEE_USER=$1
 APIGEE_PASS=$2
 APIGEE_ORG=$3
@@ -16,8 +14,6 @@ RAND=$10
 gcloud auth activate-service-account \
         $GCP_SVC_ACCOUNT_EMAIL \
         --key-file=../load-generator-key.json --project=$GPROJECT
-
-sleep 100
 
 #Deploying backend
 echo "---->DEPLOYING BACKENDS<-------"

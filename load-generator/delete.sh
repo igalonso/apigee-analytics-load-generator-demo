@@ -1,14 +1,20 @@
 #!/bin/bash
 # . delete-all.sh <APIGEE_USER> <APIGEE_PASS> <APIGEE_ORG> <APIGEE_ENV> <UUID>
-
-USR=$1
-PASS=$2
+#${APIGEE_USER} ${APIGEE_PASS} ${APIGEE_ORG} ${APIGEE_ENV} ${GPROJECT} ${APPENGINE} ${APIGEE_URL} ${APPENGINE_DOMAIN_NAME} ${GCP_SVC_ACCOUNT_EMAIL} ${RAND}
+USR=${1}
+PASS=${2}
+APIGEE_ORG=${3}
+APIGEE_ENV=${4}
+GPROJECT=${5}
+GCP_SVC_ACCOUNT_EMAIL=${9}
+RAND=${10}
 TOKEN=$(printf "$USR:$PASS" | base64)
-APIGEE_ORG=$3
-APIGEE_ENV=$4
-RAND=$5
 
-declare -a arr=("hugh@startkaleo.com" "grant@enterprise.com" "petsell@wrong.com" "tomjones@enterprise.com" "joew@bringiton.com" "acop@enterprise.com" "barbg@enterprise.com" "dandee@enterprise.com" "freds@bringiton.com")
+gcloud auth activate-service-account \
+        $GCP_SVC_ACCOUNT_EMAIL \
+        --key-file=../load-generator-key.json --project=$GPROJECT
+
+arr=("hugh@startkaleo.com" "grant@enterprise.com" "petsell@wrong.com" "tomjones@enterprise.com" "joew@bringiton.com" "acop@enterprise.com" "barbg@enterprise.com" "dandee@enterprise.com" "freds@bringiton.com")
 
 
 for dev in ${arr[@]}; do

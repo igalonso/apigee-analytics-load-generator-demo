@@ -42,13 +42,23 @@ agents = [userAgent1,userAgent10,userAgent11,userAgent12,userAgent2,userAgent3,u
 
 region1 = "europe-west1"
 region2 = "europe-north1"
-region3 = "us-central1"
-region4 = "asia-northeast1"
-region5 = "us-east1"
-region6 = "us-east4"
-region7 = "us-west1"
-region8 = "asia-east1"
+region3 = "us-central1" 
+region4 = "asia-northeast1" 
+region5 = "us-east1" 
+region6 = "us-east4" 
+region7 = "us-west1" 
+region8 = "asia-east1" 
 region9 = "europe-west4"
+
+ip1 = "2.58.116.34"
+ip2 = "5.249.224.34"
+ip3 = "198.245.66.112"
+ip4 = "2.57.184.34"
+ip5 = "161.185.160.93"
+ip6 = "142.243.136.34"
+ip7 = "161.149.146.201"
+ip8 = "23.248.160.34"
+ip9 = "194.59.249.171"
 
 europewest1 = "dandee@enterprise.com" # Admin
 europenorth1 = "grant@enterprise.com" # Consumer
@@ -72,31 +82,36 @@ data = r.content
 print("We are in: " + str(data, 'utf-8'))
 request_region = str(data, 'utf-8')
 
-
-# request_region = "asia-east1"
-# request_region = region1
-
-
 final_user = ""
+final_ip = "194.59.249.171"
 
 if region1 in request_region:
     final_user=europewest1
+    final_ip=ip1
 elif region2 in request_region:
     final_user=europenorth1
+    final_ip=ip2
 elif region3 in request_region:
     final_user=uscentral1
+    final_ip=ip3
 elif region4 in request_region:
     final_user=asianortheast1
+    final_ip=ip4
 elif region5 in request_region:
     final_user=useast1
+    final_ip=ip5
 elif region6 in request_region:
     final_user=useast4
+    final_ip=ip6
 elif region7 in request_region:
     final_user=uswest1
+    final_ip=ip7
 elif region8 in request_region:
     final_user=asiaeast1
+    final_ip=ip8
 elif region9 in request_region:
     final_user=europewest4
+    final_ip=ip9
 else:
     raise Exception
 
@@ -126,47 +141,47 @@ def starting(l):
 
 #Catalog functions
 def catalogGetList(l):
-    l.client.get("/catalog?apikey="+appkey ,headers={"User-Agent":  random.choice(agents)})
+    l.client.get("/catalog?apikey="+appkey ,headers={"User-Agent":  random.choice(agents),"X-Forwarded-For": final_ip})
 def catalogGet(l):
-    l.client.get("/catalog/"+randomNum()+"?apikey="+appkey ,headers={"User-Agent":  random.choice(agents)})
+    l.client.get("/catalog/"+randomNum()+"?apikey="+appkey ,headers={"User-Agent":  random.choice(agents),"X-Forwarded-For": final_ip})
 def catalogPost(l):
-    l.client.post("/catalog?apikey="+appkey,{"product":"this is a new product"} ,headers={"User-Agent":  random.choice(agents)})
+    l.client.post("/catalog?apikey="+appkey,{"product":"this is a new product"} ,headers={"User-Agent":  random.choice(agents),"X-Forwarded-For": final_ip})
 
 #Checkout functions
 
 def checkoutGetList(l):
-    l.client.get("/checkout?apikey="+appkey ,headers={"User-Agent":  random.choice(agents)})
+    l.client.get("/checkout?apikey="+appkey ,headers={"User-Agent":  random.choice(agents),"X-Forwarded-For": final_ip})
 def checkoutGet(l):
-    l.client.get("/checkout/"+randomNum()+"?apikey="+appkey ,headers={"User-Agent":  random.choice(agents)})
+    l.client.get("/checkout/"+randomNum()+"?apikey="+appkey ,headers={"User-Agent":  random.choice(agents),"X-Forwarded-For": final_ip})
 def checkoutPost(l):
-    l.client.post("/checkout?apikey="+appkey,{"cart":"this is a new cart"} ,headers={"User-Agent":  random.choice(agents)})
+    l.client.post("/checkout?apikey="+appkey,{"cart":"this is a new cart"} ,headers={"User-Agent":  random.choice(agents),"X-Forwarded-For": final_ip})
 
 #Loyalty functions
 
 def loyaltyGetList(l):
-    l.client.get("/loyalty?apikey="+appkey ,headers={"User-Agent":  random.choice(agents)})
+    l.client.get("/loyalty?apikey="+appkey ,headers={"User-Agent":  random.choice(agents),"X-Forwarded-For": final_ip})
 def loyaltyGet(l):
-    l.client.get("/loyalty/"+randomNum()+"?apikey="+appkey ,headers={"User-Agent":  random.choice(agents)})
+    l.client.get("/loyalty/"+randomNum()+"?apikey="+appkey ,headers={"User-Agent":  random.choice(agents),"X-Forwarded-For": final_ip})
 def loyaltyPost(l):
-    l.client.post("/loyalty?apikey="+appkey,{"loyalty":"this is a new loyalty"} ,headers={"User-Agent":  random.choice(agents)})
+    l.client.post("/loyalty?apikey="+appkey,{"loyalty":"this is a new loyalty"} ,headers={"User-Agent":  random.choice(agents),"X-Forwarded-For": final_ip})
 
 #Loyalty functions
 
 def recommendationGetList(l):
-    l.client.get("/recommendation?apikey="+appkey ,headers={"User-Agent":  random.choice(agents)})
+    l.client.get("/recommendation?apikey="+appkey ,headers={"User-Agent":  random.choice(agents),"X-Forwarded-For": final_ip})
 def recommendationGet(l):
-    l.client.get("/recommendation/"+randomNum()+"?apikey="+appkey ,headers={"User-Agent":  random.choice(agents)})
+    l.client.get("/recommendation/"+randomNum()+"?apikey="+appkey ,headers={"User-Agent":  random.choice(agents),"X-Forwarded-For": final_ip})
 def recommendationPost(l):
-    l.client.post("/recommendation?apikey="+appkey,returnPayload() ,headers={"User-Agent":  random.choice(agents)})
+    l.client.post("/recommendation?apikey="+appkey,returnPayload() ,headers={"User-Agent":  random.choice(agents),"X-Forwarded-For": final_ip})
 
 #Loyalty functions
 
 def userGetList(l):
-    l.client.get("/user?apikey="+appkey ,headers={"User-Agent":  random.choice(agents)})
+    l.client.get("/user?apikey="+appkey ,headers={"User-Agent":  random.choice(agents),"X-Forwarded-For": final_ip})
 def userGet(l):
-    l.client.get("/user/"+randomNum()+"?apikey="+appkey ,headers={"User-Agent":  random.choice(agents)})
+    l.client.get("/user/"+randomNum()+"?apikey="+appkey ,headers={"User-Agent":  random.choice(agents),"X-Forwarded-For": final_ip})
 def userPost(l):
-    l.client.post("/user?apikey="+appkey,returnPayload() ,headers={"User-Agent":  random.choice(agents)})
+    l.client.post("/user?apikey="+appkey,returnPayload() ,headers={"User-Agent":  random.choice(agents),"X-Forwarded-For": final_ip})
 
 
 class UserBehavior(TaskSet):
