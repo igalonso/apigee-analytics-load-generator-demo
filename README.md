@@ -77,15 +77,17 @@ Duration: 45:00
 
 4. [gcloud sdk](https://cloud.google.com/sdk/install) installed
 
-5. Apigee’s [Maven config](https://github.com/apigee/apigee-config-maven-plugin) and[ Maven Deploy](https://github.com/apigee/apigee-deploy-maven-plugin) installed.
-
-6. [Docker](https://docs.docker.com/install/) installed
+5. [Docker](https://docs.docker.com/install/) installed
 
 ## Install - deploying the demo
 
 1. Clone [this](https://github.com/igalonso/apigee-analytics-load-generator-demo) project in your local folder.
 
-2. Run sh initial.sh <APIGEE_USER> <APIGEE_PASS> <APIGEE_ORG> <APIGEE_ENV> <GPROJECT> <APPENGINE> <APIGEE_URL>  <APPENGINE_DOMAIN_NAME> <UUID>
+2. Create a [service account](https://cloud.google.com/iam/docs/creating-managing-service-accounts) with GCP onwer role permissions (to be modified in future releases). Generate a [key](https://cloud.google.com/iam/docs/creating-managing-service-account-keys) and save it in the project root folder with the name ```load-generator-key.json```.
+
+3. Run sh init.sh <ACTION> <APIGEE_USER> <APIGEE_PASS> <APIGEE_ORG> <APIGEE_ENV> <GPROJECT> <APPENGINE> <APIGEE_URL>  <APPENGINE_DOMAIN_NAME> <UUID>
+
+* **ACTION**: ```launch``` to start the load generator or ```delete``` to remove the load generator
 
 * **APIGEE_USER**: Apigee User with organization administrator permissions
 
@@ -105,9 +107,11 @@ Duration: 45:00
 
 * **UUID**: Random number that you will need to remember (to support multiple instances of this demo within the same org) in order to delete this deployment afterwards..
 
-3. Wait! It should deploy everything and provide a reliable traffic pattern to your Apigee organization.
+4. Wait! It should deploy everything and provide a reliable traffic pattern to your Apigee organization.
 
-4. Update your domain on appengine following [this](https://cloud.google.com/appengine/docs/standard/python/mapping-custom-domains) guide
+5. Update your domain on appengine following [this](https://cloud.google.com/appengine/docs/standard/python/mapping-custom-domains) guide
+
+6. Delete the service account and key to avoid security breaches.
 
 * * *
 

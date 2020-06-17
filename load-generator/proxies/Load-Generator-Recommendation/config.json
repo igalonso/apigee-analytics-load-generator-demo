@@ -1,7 +1,7 @@
 {
     "configurations": [
         {
-            "name": "<environment>",
+            "name": "test",
             "policies": [
             ],
             "proxies": [
@@ -21,7 +21,7 @@
                     "tokens": [
                         {
                             "xpath": "/TargetEndpoint/HTTPTargetConnection/URL",
-                            "value": "https://<gproject>.appspot.com/recommendation"
+                            "value": "https://igngar-test.appspot.com/recommendation"
                         }
                     ]
                 }
