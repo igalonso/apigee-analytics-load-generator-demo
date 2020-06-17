@@ -16,5 +16,5 @@
 /load-generator/backend/_pycache_/*
 /load-generator/backend/services/_pycache_/*
 load-generator-key*
-start.sh
-stop.sh
+start*
+stop*
