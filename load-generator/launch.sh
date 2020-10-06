@@ -100,20 +100,20 @@ gcloud compute addresses create $(echo "load-locust-europe-west4-ip-"$RAND) --re
 # sleep 60
 
 ADDR=$(gcloud compute addresses describe load-locust-asia-east1-ip-$(echo $RAND) --region asia-east1 --format json | jq -r '.address')
-gcloud compute instances create-with-container $(echo "load-locust-asia-east1-"$RAND) --machine-type=f1-micro --container-image gcr.io/$GPROJECT/load-test --address $ADDR --zone asia-east1-b 
+gcloud compute instances create-with-container $(echo "load-locust-asia-east1-"$RAND) --machine-type=e2-small --container-image gcr.io/$GPROJECT/load-test --address $ADDR --zone asia-east1-b 
 ADDR=$(gcloud compute addresses describe load-locust-asia-northeast1-ip-$(echo $RAND) --region asia-northeast1 --format json | jq -r '.address')
-gcloud compute instances create-with-container $(echo "load-locust-asia-northeast1-"$RAND)  --machine-type=f1-micro --container-image gcr.io/$GPROJECT/load-test --address $ADDR --zone asia-northeast1-b
+gcloud compute instances create-with-container $(echo "load-locust-asia-northeast1-"$RAND)  --machine-type=e2-small --container-image gcr.io/$GPROJECT/load-test --address $ADDR --zone asia-northeast1-b
 ADDR=$(gcloud compute addresses describe load-locust-europe-north1-ip-$(echo $RAND) --region europe-north1 --format json | jq -r '.address')
-gcloud compute instances create-with-container $(echo "load-locust-europe-north1-"$RAND)  --machine-type=f1-micro --container-image gcr.io/$GPROJECT/load-test --address $ADDR --zone europe-north1-b
+gcloud compute instances create-with-container $(echo "load-locust-europe-north1-"$RAND)  --machine-type=e2-small --container-image gcr.io/$GPROJECT/load-test --address $ADDR --zone europe-north1-b
 ADDR=$(gcloud compute addresses describe load-locust-europe-west1-ip-$(echo $RAND) --region europe-west1 --format json | jq -r '.address')
-gcloud compute instances create-with-container $(echo "load-locust-europe-west1-"$RAND)  --machine-type=f1-micro --container-image gcr.io/$GPROJECT/load-test --address $ADDR --zone europe-west1-b 
+gcloud compute instances create-with-container $(echo "load-locust-europe-west1-"$RAND)  --machine-type=e2-small --container-image gcr.io/$GPROJECT/load-test --address $ADDR --zone europe-west1-b 
 ADDR=$(gcloud compute addresses describe load-locust-us-central1-ip-$(echo $RAND) --region us-central1 --format json | jq -r '.address')
-gcloud compute instances create-with-container $(echo "load-locust-us-central1-"$RAND)  --machine-type=f1-micro --container-image gcr.io/$GPROJECT/load-test --address $ADDR --zone us-central1-b 
+gcloud compute instances create-with-container $(echo "load-locust-us-central1-"$RAND)  --machine-type=e2-small --container-image gcr.io/$GPROJECT/load-test --address $ADDR --zone us-central1-b 
 ADDR=$(gcloud compute addresses describe load-locust-us-east1-ip-$(echo $RAND) --region us-east1 --format json | jq -r '.address')
-gcloud compute instances create-with-container $(echo "load-locust-us-east1-"$RAND)  --machine-type=f1-micro --container-image gcr.io/$GPROJECT/load-test --address $ADDR --zone us-east1-b
+gcloud compute instances create-with-container $(echo "load-locust-us-east1-"$RAND)  --machine-type=e2-small --container-image gcr.io/$GPROJECT/load-test --address $ADDR --zone us-east1-b
 ADDR=$(gcloud compute addresses describe load-locust-us-east4-ip-$(echo $RAND) --region us-east4 --format json | jq -r '.address')
-gcloud compute instances create-with-container $(echo "load-locust-us-east4-"$RAND)  --machine-type=f1-micro --container-image gcr.io/$GPROJECT/load-test --address $ADDR --zone us-east4-b
+gcloud compute instances create-with-container $(echo "load-locust-us-east4-"$RAND)  --machine-type=e2-small --container-image gcr.io/$GPROJECT/load-test --address $ADDR --zone us-east4-b
 ADDR=$(gcloud compute addresses describe load-locust-us-west1-ip-$(echo $RAND) --region us-west1 --format json | jq -r '.address')
-gcloud compute instances create-with-container $(echo "load-locust-us-west1-"$RAND)  --machine-type=f1-micro --container-image gcr.io/$GPROJECT/load-test --address $ADDR --zone us-west1-b
+gcloud compute instances create-with-container $(echo "load-locust-us-west1-"$RAND)  --machine-type=e2-small --container-image gcr.io/$GPROJECT/load-test --address $ADDR --zone us-west1-b
 ADDR=$(gcloud compute addresses describe load-locust-europe-west4-ip-$(echo $RAND) --region europe-west4 --format json | jq -r '.address')
-gcloud compute instances create-with-container $(echo "load-locust-europe-west4-"$RAND)  --machine-type=f1-micro --container-image gcr.io/$GPROJECT/load-test --address $ADDR --zone europe-west4-b 
+gcloud compute instances create-with-container $(echo "load-locust-europe-west4-"$RAND)  --machine-type=e2-small --container-image gcr.io/$GPROJECT/load-test --address $ADDR --zone europe-west4-b 

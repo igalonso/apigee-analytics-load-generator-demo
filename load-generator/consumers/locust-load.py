@@ -82,7 +82,7 @@ data = r.content
 print("We are in: " + str(data, 'utf-8'))
 request_region = str(data, 'utf-8')
 
-final_user = ""
+final_user = "dandee@enterprise.com"
 final_ip = "194.59.249.171"
 
 if region1 in request_region:
@@ -210,6 +210,7 @@ class UserBehavior(TaskSet):
         tasks = {loyaltyGetList: 1, loyaltyGet: 5,loyaltyPost: 1, recommendationGet: 3, recommendationPost: 2, recommendationGetList: 7, userGet: 6, userPost: 1}
 
 class WebsiteUser(HttpLocust):
+    print("This is")
     task_set = UserBehavior
     min_wait=5000
     max_wait=9000
