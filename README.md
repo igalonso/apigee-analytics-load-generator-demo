@@ -85,7 +85,7 @@ Duration: 45:00
 
 2. Create a [service account](https://cloud.google.com/iam/docs/creating-managing-service-accounts) with GCP onwer role permissions (to be modified in future releases). Generate a [key](https://cloud.google.com/iam/docs/creating-managing-service-account-keys) and save it in the project root folder with the name ```load-generator-key.json```.
 
-3. Run sh init.sh  <ACTION> <APIGEE_USER> <APIGEE_PASS> <APIGEE_ORG> <APIGEE_ENV> <GPROJECT> <APPENGINE> <APIGEE_URL>  <APPENGINE_DOMAIN_NAME> <UUID>
+3. Run sh init.sh  <ACTION>  <APIGEE_USER> <APIGEE_PASS> <APIGEE_ORG> <APIGEE_ENV> <GPROJECT> <APPENGINE> <APIGEE_URL>  <APPENGINE_DOMAIN_NAME> <UUID>
 
 * **ACTION**: ```launch``` to start the load generator or ```delete``` to remove the load generator
 
