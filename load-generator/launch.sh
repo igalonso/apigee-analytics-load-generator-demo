@@ -82,6 +82,7 @@ cp Dockerfile_template Dockerfile
 sed -i "s/APIGEE_USER/$APIGEE_USER/g" Dockerfile
 sed -i "s/APIGEE_ORG/$APIGEE_ORG/g" Dockerfile
 sed -i "s/APIGEE_PASS/$APIGEE_PASS/g" Dockerfile
+sed -i "s/APIGEE_ENV/$APIGEE_ENV/g" Dockerfile
 
 
 gcloud builds submit --tag gcr.io/$GPROJECT/load-test
