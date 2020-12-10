@@ -38,6 +38,7 @@ gcloud app deploy dispatch.yaml --project $GPROJECT --quiet
 #Deploy target servers
 echo "---->DEPLOYING Target Servers<-------"
 cd ../../config/targetservers
+cp edge.json.template edge.json
 sed -i "s/<domain>/$APPENGINE_DOMAIN_NAME/g" edge.json
 sed -i "s/<environment>/$APIGEE_ENV/g" edge.json
 mvn install -Ptest -Dusername=$APIGEE_USER -Dpassword=$APIGEE_PASS -Dorg=$APIGEE_ORG -Denv=$APIGEE_ENV -Dapigee.config.options=create
@@ -46,22 +47,27 @@ mvn install -Ptest -Dusername=$APIGEE_USER -Dpassword=$APIGEE_PASS -Dorg=$APIGEE
 echo "---->DEPLOYING PROXIES<-------"
 cd ../../proxies
 cd Load-Generator-Catalog
+cp config.json.template config.json
 sed -i "s/<environment>/$APIGEE_ENV/g" config.json
 sed -i "s/<gproject>/$GPROJECT/g" config.json
 mvn install -Ptest -Dusername=$APIGEE_USER -Dpassword=$APIGEE_PASS -Dorg=$APIGEE_ORG -Denv=$APIGEE_ENV
 cd ../Load-Generator-Checkout
+cp config.json.template config.json
 sed -i "s/<environment>/$APIGEE_ENV/g" config.json
 sed -i "s/<gproject>/$GPROJECT/g" config.json
 mvn install -Ptest -Dusername=$APIGEE_USER -Dpassword=$APIGEE_PASS -Dorg=$APIGEE_ORG -Denv=$APIGEE_ENV
 cd ../Load-Generator-Loyalty
+cp config.json.template config.json
 sed -i "s/<environment>/$APIGEE_ENV/g" config.json
 sed -i "s/<gproject>/$GPROJECT/g" config.json
 mvn install -Ptest -Dusername=$APIGEE_USER -Dpassword=$APIGEE_PASS -Dorg=$APIGEE_ORG -Denv=$APIGEE_ENV
 cd ../Load-Generator-Recommendation
+cp config.json.template config.json
 sed -i "s/<environment>/$APIGEE_ENV/g" config.json
 sed -i "s/<gproject>/$GPROJECT/g" config.json
 mvn install -Ptest -Dusername=$APIGEE_USER -Dpassword=$APIGEE_PASS -Dorg=$APIGEE_ORG -Denv=$APIGEE_ENV
 cd ../Load-Generator-User
+cp config.json.template config.json
 sed -i "s/<environment>/$APIGEE_ENV/g" config.json
 sed -i "s/<gproject>/$GPROJECT/g" config.json
 mvn install -Ptest -Dusername=$APIGEE_USER -Dpassword=$APIGEE_PASS -Dorg=$APIGEE_ORG -Denv=$APIGEE_ENV
