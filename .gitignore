@@ -15,7 +15,7 @@
 /load-generator/stop.sh
 /load-generator/backend/_pycache_/*
 /load-generator/backend/services/_pycache_/*
-/load-generator//config/targetservers/edge.json
+/load-generator/config/targetservers/edge.json
 /load-generator/proxies/Load-Generator-Catalog/config.json
 /load-generator/proxies/Load-Generator-Checkout/config.json
 /load-generator/proxies/Load-Generator-Loyalty/config.json

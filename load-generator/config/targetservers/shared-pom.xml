@@ -26,29 +26,15 @@
             <plugin>
                 <groupId>com.apigee.edge.config</groupId>
                 <artifactId>apigee-config-maven-plugin</artifactId>
-                <version>1.3.8</version>
+                <version>2.1.0</version>
                 <executions>
-                	<!--  <execution>
-                        <id>create-config-specs</id>
-                        <phase>install</phase>                        
-                        <goals>
-                            <goal>specs</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>create-config-cache</id>
-                        <phase>install</phase>                        
-                        <goals>
-                            <goal>caches</goal>
-                        </goals>
-                    </execution>
                     <execution>
                         <id>create-config-references</id>
                         <phase>install</phase>                        
                         <goals>
                             <goal>references</goal>
                         </goals>
-                    </execution> -->
+                    </execution>
                     <execution>
                         <id>create-config-targetserver</id>
                         <phase>install</phase>                        
@@ -56,7 +42,7 @@
                             <goal>targetservers</goal>
                         </goals>
                     </execution>
-                    <!-- <execution>
+                    <execution>
                         <id>create-config-kvm</id>
                         <phase>install</phase>                        
                         <goals>
@@ -90,35 +76,21 @@
                         <goals>
                             <goal>apps</goal>
                         </goals>
-                    </execution> -->
-                    <!-- <execution>
-                        <id>create-config-app</id>
-                        <phase>install</phase>                        
-                        <goals>
-                            <goal>apps</goal>
-                        </goals>
-                    </execution> -->
-                    <!-- <execution>
+                    </execution>
+                    <execution>
                         <id>create-config-reports</id>
                         <phase>install</phase>                        
                         <goals>
                             <goal>reports</goal>
                         </goals>
-                    </execution> -->
-                    <!-- <execution> 
+                    </execution>
+                    <execution> 
                         <id>create-config-flowhooks</id>
                         <phase>install</phase>
                         <goals>
                             <goal>flowhooks</goal>
                         </goals>
-                    </execution> -->
-                    <!-- <execution> 
-                        <id>create-config-userroles</id>
-                        <phase>install</phase>
-                        <goals>
-                            <goal>userroles</goal>
-                        </goals>
-                    </execution> -->
+                    </execution>
                 </executions>
             </plugin>            
         </plugins>
@@ -128,19 +100,26 @@
             <id>test</id>
             <properties>
                 <apigee.profile>test</apigee.profile>
-                <apigee.hosturl>https://api.enterprise.apigee.com</apigee.hosturl>
+                <apigee.hosturl>https://apigee.googleapis.com</apigee.hosturl>
                 <apigee.apiversion>v1</apigee.apiversion>
                 <apigee.org>${org}</apigee.org>
                 <apigee.env>${env}</apigee.env>
-                <apigee.username>${username}</apigee.username>
-                <apigee.password>${password}</apigee.password>
-                <apigee.authtype>basic</apigee.authtype> <!-- optional: oauth|basic(default) -->
-                <apigee.tokenurl>https://login.apigee.com/oauth/token</apigee.tokenurl> <!-- optional: oauth -->
-                <apigee.mfatoken>${mfatoken}</apigee.mfatoken> <!-- optional: mfa -->
-                <apigee.clientid>${clientId}</apigee.clientid> <!-- optional: Oauth Client Id - Default is edgecli-->
-                <apigee.clientsecret>${clientSecret}</apigee.clientsecret> <!-- optional: Oauth Client Secret Default is edgeclisecret-->
-                <apigee.bearer>${bearer}</apigee.bearer> <!-- optional: Bearer token override -->
-                <apigee.refresh>${refresh}</apigee.refresh> <!-- optional: Refresh token override -->
+                <apigee.authtype>oauth</apigee.authtype> <!-- only option -->
+                <apigee.bearer>${bearer}</apigee.bearer> <!-- this takes precedence over service account file -->
+                <apigee.serviceaccount.file>${file}</apigee.serviceaccount.file>
+            </properties>
+        </profile>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <apigee.profile>dev</apigee.profile>
+                <apigee.hosturl>https://apigee.googleapis.com</apigee.hosturl>
+                <apigee.apiversion>v1</apigee.apiversion>
+                <apigee.org>${org}</apigee.org>
+                <apigee.env>${env}</apigee.env>
+                <apigee.authtype>oauth</apigee.authtype> <!-- only option -->
+                <apigee.bearer>${bearer}</apigee.bearer> <!-- this takes precedence over service account file -->
+                <apigee.serviceaccount.file>${file}</apigee.serviceaccount.file>
             </properties>
         </profile>
     </profiles>
@@ -153,7 +132,6 @@
         </dependency>
     </dependencies>
 </project>
-
 
 
 
