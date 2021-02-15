@@ -1,7 +1,8 @@
 /load-generator/proxies/get-proxies.sh
 /load-generator/proxies/*/target/*
 /load-generator/proxies/*/target
-/load-generator/consumers/Dockerfile
+/load-generator/consumers/Dockerfile*
+/load-generator/consumers/Dockerfile.back
 /load-generator/consumers/_pycache_/*
 /load-generator/consumers/_pycache_/
 /load-generator/start.sh

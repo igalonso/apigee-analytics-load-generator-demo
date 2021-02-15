@@ -1,5 +1,0 @@
-FROM python:3.6
-COPY . ./
-
-RUN pip3 install -r requirements.txt
-CMD exec sh load-test.sh ya29.a0AfH6SMBtblBS8KoyI0GvXYMk0JezchfZFmq5RYb7_4sgnA0CqK-KYt0o67ctakAoTEbYor-Aq8UZ8v0i7cwj44aG1brE4fDeqcNKnjK9QNYDhqlAJ0FiFmmAhrHUcGMMF6AdABlGoDghsj0CQL_OOLcHirt8vQLBurMnbnh6ayTUx7rSgiMu igngar-test-2 eval HOST
