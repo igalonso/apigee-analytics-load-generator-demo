@@ -2,4 +2,4 @@ FROM python:3.6
 COPY . ./
 
 RUN pip3 install -r requirements.txt
-CMD exec sh load-test.sh APIGEE_USER APIGEE_PASS APIGEE_ORG APIGEE_ENV
+CMD exec sh load-test.sh GCP_TOKEN APIGEE_ORG APIGEE_ENV HOST

@@ -97,9 +97,9 @@
     </build>
     <profiles>
         <profile>
-            <id>test</id>
+            <id>eval</id>
             <properties>
-                <apigee.profile>test</apigee.profile>
+                <apigee.profile>eval</apigee.profile>
                 <apigee.hosturl>https://apigee.googleapis.com</apigee.hosturl>
                 <apigee.apiversion>v1</apigee.apiversion>
                 <apigee.org>${org}</apigee.org>
@@ -110,9 +110,9 @@
             </properties>
         </profile>
         <profile>
-            <id>dev</id>
+            <id>prod</id>
             <properties>
-                <apigee.profile>dev</apigee.profile>
+                <apigee.profile>prod</apigee.profile>
                 <apigee.hosturl>https://apigee.googleapis.com</apigee.hosturl>
                 <apigee.apiversion>v1</apigee.apiversion>
                 <apigee.org>${org}</apigee.org>
@@ -128,7 +128,7 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.8.2</version>
-            <scope>test</scope>
+            <scope>eval</scope>
         </dependency>
     </dependencies>
 </project>
