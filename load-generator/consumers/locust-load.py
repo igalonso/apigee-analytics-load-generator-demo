@@ -4,9 +4,18 @@ import os
 from locust import HttpLocust, TaskSet
 
 
+
 token = os.getenv("TOKEN")
 #apigee_url = os.getenv("APIGEE_URL")
 apigee_org = os.getenv("APIGEE_ORG")
+
+
+token ="ya29.a0AfH6SMAZWReTskyHKn0u8RA3riNI8Tjfh6ilx3NRvSWjjwUZDFvfAD7KHKcbR2R9NJ2_FSO0EXvqQroi8gHrlHu5NamhXSWcbhyggyZP_lrVF__iscQ2608MA4yVPxF8N7jHhJL3QthSx2OMML68qfQoIicOAw"
+apigee_env ="eval"
+apigee_org = "igngar-test-2"
+apigee_url = "igngar-test-2-eval.igngar.dev"
+
+
 
 hugePayload = {"Content":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et tortor elit. Vivamus nibh orci, auctor eu pharetra sit amet, finibus et turpis. Nullam scelerisque vel lorem et condimentum. Pellentesque a est nulla. Praesent molestie cursus commodo. Integer ac odio at arcu imperdiet volutpat ut et velit. Ut viverra pellentesque elit eget mattis. Maecenas et convallis risus. Aenean sem nisl, cursus sit amet faucibus eget, lacinia eget sapien. Aenean eu elementum mi, condimentum pharetra ante. Aliquam scelerisque malesuada purus.Etiam elementum libero neque, id pellentesque lectus sodales non. Suspendisse dui arcu, vehicula quis diam semper, tempus elementum nulla. Duis ut ipsum ut ex mollis malesuada sed ultrices nisl. Etiam sit amet massa vestibulum, imperdiet nunc ac, sagittis massa. Nulla quis orci sit amet sem faucibus malesuada. Sed ut eros placerat, consequat nisl facilisis, accumsan diam. Phasellus eleifend velit non iaculis aliquet. Etiam ac dolor tincidunt, luctus metus et, luctus erat. Praesent fermentum sed dui et fermentum. Donec nec pretium neque, eu vulputate urna. Donec non metus sit amet velit interdum viverra. Praesent non luctus velit. Maecenas velit arcu, suscipit sed mauris et, ultrices ullamcorper arcu. Phasellus commodo magna metus, vel mollis arcu aliquam non. Nunc rhoncus velit nisi, a fermentum eros luctus nec.Cras cursus tempus velit, vel commodo ex dapibus a. Sed nec commodo libero, semper iaculis purus. Praesent faucibus, mi vitae scelerisque feugiat, ligula dui dictum quam, eget porta neque quam ac ligula. Ut ullamcorper ipsum quis urna ornare, vitae consequat nibh viverra. Curabitur semper feugiat nunc et ultrices. Suspendisse id tellus in velit auctor elementum vitae in enim. Nunc eu venenatis risus. Sed sed purus magna. Proin nec facilisis eros. Donec et elit id risus tristique congue ut nec lectus. Sed augue mi, accumsan non ligula vel, dapibus lacinia mauris. Mauris quam arcu, congue et sapien eu, consectetur placerat nisl. Nam finibus quam pulvinar vehicula placerat.Quisque rhoncus sapien quis turpis lacinia, egestas congue neque placerat. Phasellus eu bibendum quam. Proin quis justo erat. Nam faucibus lorem iaculis, aliquam risus non, vulputate sapien. Ut gravida interdum mauris vel rutrum. Nullam tortor est, bibendum at nibh quis, tincidunt rutrum tellus. Integer luctus ante eu sapien euismod, a tempus quam congue. Donec ullamcorper posuere leo, vel condimentum purus venenatis ut. Maecenas in faucibus justo, convallis euismod sem. In ut magna vel est blandit porta. Ut et porta lorem, et scelerisque tortor. Curabitur faucibus, velit vel tristique aliquam, leo nibh porta sem, at euismod augue tortor a sapien. Maecenas sit amet augue id ipsum dictum malesuada id ac ligula. Fusce vel fringilla nisl, nec hendrerit sapien.Vestibulum lorem nisl, cursus varius lacus quis, eleifend posuere sem. Cras vehicula faucibus diam a vehicula. Etiam tincidunt malesuada porta. Aliquam erat volutpat. Integer nec diam diam. Nullam tortor lorem, rutrum nec consectetur vitae, gravida a purus. Nullam vehicula eros libero, non consectetur ligula imperdiet nec. Quisque malesuada justo mi, at tincidunt neque pharetra et. Duis vitae magna eu libero malesuada dictum. Maecenas sit amet ornare velit. Maecenas egestas velit egestas felis dignissim blandit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et tortor elit. Vivamus nibh orci, auctor eu pharetra sit amet, finibus et turpis. Nullam scelerisque vel lorem et condimentum. Pellentesque a est nulla. Praesent molestie cursus commodo. Integer ac odio at arcu imperdiet volutpat ut et velit. Ut viverra pellentesque elit eget mattis. Maecenas et convallis risus. Aenean sem nisl, cursus sit amet faucibus eget, lacinia eget sapien. Aenean eu elementum mi, condimentum pharetra ante. Aliquam scelerisque malesuada purus.Etiam elementum libero neque, id pellentesque lectus sodales non. Suspendisse dui arcu, vehicula quis diam semper, tempus elementum nulla. Duis ut ipsum ut ex mollis malesuada sed ultrices nisl. Etiam sit amet massa vestibulum, imperdiet nunc ac, sagittis massa. Nulla quis orci sit amet sem faucibus malesuada. Sed ut eros placerat, consequat nisl facilisis, accumsan diam. Phasellus eleifend velit non iaculis aliquet. Etiam ac dolor tincidunt, luctus metus et, luctus erat. Praesent fermentum sed dui et fermentum. Donec nec pretium neque, eu vulputate urna. Donec non metus sit amet velit interdum viverra. Praesent non luctus velit. Maecenas velit arcu, suscipit sed mauris et, ultrices ullamcorper arcu. Phasellus commodo magna metus, vel mollis arcu aliquam non. Nunc rhoncus velit nisi, a fermentum eros luctus nec.Cras cursus tempus velit, vel commodo ex dapibus a. Sed nec commodo libero, semper iaculis purus. Praesent faucibus, mi vitae scelerisque feugiat, ligula dui dictum quam, eget porta neque quam ac ligula. Ut ullamcorper ipsum quis urna ornare, vitae consequat nibh viverra. Curabitur semper feugiat nunc et ultrices. Suspendisse id tellus in velit auctor elementum vitae in enim. Nunc eu venenatis risus. Sed sed purus magna. Proin nec facilisis eros. Donec et elit id risus tristique congue ut nec lectus. Sed augue mi, accumsan non ligula vel, dapibus lacinia mauris. Mauris quam arcu, congue et sapien eu, consectetur placerat nisl. Nam finibus quam pulvinar vehicula placerat.Quisque rhoncus sapien quis turpis lacinia, egestas congue neque placerat. Phasellus eu bibendum quam. Proin quis justo erat. Nam faucibus lorem iaculis, aliquam risus non, vulputate sapien. Ut gravida interdum mauris vel rutrum. Nullam tortor est, bibendum at nibh quis, tincidunt rutrum tellus. Integer luctus ante eu sapien euismod, a tempus quam congue. Donec ullamcorper posuere leo, vel condimentum purus venenatis ut. Maecenas in faucibus justo, convallis euismod sem. In ut magna vel est blandit porta. Ut et porta lorem, et scelerisque tortor. Curabitur faucibus, velit vel tristique aliquam, leo nibh porta sem, at euismod augue tortor a sapien. Maecenas sit amet augue id ipsum dictum malesuada id ac ligula. Fusce vel fringilla nisl, nec hendrerit sapien.Vestibulum lorem nisl, cursus varius lacus quis, eleifend posuere sem. Cras vehicula faucibus diam a vehicula. Etiam tincidunt malesuada porta. Aliquam erat volutpat. Integer nec diam diam. Nullam tortor lorem, rutrum nec consectetur vitae, gravida a purus. Nullam vehicula eros libero, non consectetur ligula imperdiet nec. Quisque malesuada justo mi, at tincidunt neque pharetra et. Duis vitae magna eu libero malesuada dictum. Maecenas sit amet ornare velit. Maecenas egestas velit egestas felis dignissim blandit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et tortor elit. Vivamus nibh orci, auctor eu pharetra sit amet, finibus et turpis. Nullam scelerisque vel lorem et condimentum. Pellentesque a est nulla. Praesent molestie cursus commodo. Integer ac odio at arcu imperdiet volutpat ut et velit. Ut viverra pellentesque elit eget mattis. Maecenas et convallis risus. Aenean sem nisl, cursus sit amet faucibus eget, lacinia eget sapien. Aenean eu elementum mi, condimentum pharetra ante. Aliquam scelerisque malesuada purus.Etiam elementum libero neque, id pellentesque lectus sodales non. Suspendisse dui arcu, vehicula quis diam semper, tempus elementum nulla. Duis ut ipsum ut ex mollis malesuada sed ultrices nisl. Etiam sit amet massa vestibulum, imperdiet nunc ac, sagittis massa. Nulla quis orci sit amet sem faucibus malesuada. Sed ut eros placerat, consequat nisl facilisis, accumsan diam. Phasellus eleifend velit non iaculis aliquet. Etiam ac dolor tincidunt, luctus metus et, luctus erat. Praesent fermentum sed dui et fermentum. Donec nec pretium neque, eu vulputate urna. Donec non metus sit amet velit interdum viverra. Praesent non luctus velit. Maecenas velit arcu, suscipit sed mauris et, ultrices ullamcorper arcu. Phasellus commodo magna metus, vel mollis arcu aliquam non. Nunc rhoncus velit nisi, a fermentum eros luctus nec.Cras cursus tempus velit, vel commodo ex dapibus a. Sed nec commodo libero, semper iaculis purus. Praesent faucibus, mi vitae scelerisque feugiat, ligula dui dictum quam, eget porta neque quam ac ligula. Ut ullamcorper ipsum quis urna ornare, vitae consequat nibh viverra. Curabitur semper feugiat nunc et ultrices. Suspendisse id tellus in velit auctor elementum vitae in enim. Nunc eu venenatis risus. Sed sed purus magna. Proin nec facilisis eros. Donec et elit id risus tristique congue ut nec lectus. Sed augue mi, accumsan non ligula vel, dapibus lacinia mauris. Mauris quam arcu, congue et sapien eu, consectetur placerat nisl. Nam finibus quam pulvinar vehicula placerat.Quisque rhoncus sapien quis turpis lacinia, egestas congue neque placerat. Phasellus eu bibendum quam. Proin quis justo erat. Nam faucibus lorem iaculis, aliquam risus non, vulputate sapien. Ut gravida interdum mauris vel rutrum. Nullam tortor est, bibendum at nibh quis, tincidunt rutrum tellus. Integer luctus ante eu sapien euismod, a tempus quam congue. Donec ullamcorper posuere leo, vel condimentum purus venenatis ut. Maecenas in faucibus justo, convallis euismod sem. In ut magna vel est blandit porta. Ut et porta lorem, et scelerisque tortor. Curabitur faucibus, velit vel tristique aliquam, leo nibh porta sem, at euismod augue tortor a sapien. Maecenas sit amet augue id ipsum dictum malesuada id ac ligula. Fusce vel fringilla nisl, nec hendrerit sapien.Vestibulum lorem nisl, cursus varius lacus quis, eleifend posuere sem. Cras vehicula faucibus diam a vehicula. Etiam tincidunt malesuada porta. Aliquam erat volutpat. Integer nec diam diam. Nullam tortor lorem, rutrum nec consectetur vitae, gravida a purus. Nullam vehicula eros libero, non consectetur ligula imperdiet nec. Quisque malesuada justo mi, at tincidunt neque pharetra et. Duis vitae magna eu libero malesuada dictum. Maecenas sit amet ornare velit. Maecenas egestas velit egestas felis dignissim blandit."}
 
@@ -139,53 +148,52 @@ def starting(l):
 
 #Catalog functions
 def catalogGetList(l):
-    l.client.get("/catalog?apikey="+appkey ,headers={"User-Agent":  random.choice(agents),"X-Forwarded-For": final_ip}, verify=False)
+    l.client.get("/catalog?apikey="+appkey ,headers={"User-Agent":  random.choice(agents),"X-Forwarded-For": final_ip})
 def catalogGet(l):
-    l.client.get("/catalog/"+randomNum()+"?apikey="+appkey ,headers={"User-Agent":  random.choice(agents),"X-Forwarded-For": final_ip}, verify=False)
+    l.client.get("/catalog/"+randomNum()+"?apikey="+appkey ,headers={"User-Agent":  random.choice(agents),"X-Forwarded-For": final_ip})
 def catalogPost(l):
-    l.client.post("/catalog?apikey="+appkey,{"product":"this is a new product"} ,headers={"User-Agent":  random.choice(agents),"X-Forwarded-For": final_ip}, verify=False)
+    l.client.post("/catalog?apikey="+appkey,{"product":"this is a new product"} ,headers={"User-Agent":  random.choice(agents),"X-Forwarded-For": final_ip})
 
 #Checkout functions
 
 def checkoutGetList(l):
-    l.client.get("/checkout?apikey="+appkey ,headers={"User-Agent":  random.choice(agents),"X-Forwarded-For": final_ip}, verify=False)
+    l.client.get("/checkout?apikey="+appkey ,headers={"User-Agent":  random.choice(agents),"X-Forwarded-For": final_ip})
 def checkoutGet(l):
-    l.client.get("/checkout/"+randomNum()+"?apikey="+appkey ,headers={"User-Agent":  random.choice(agents),"X-Forwarded-For": final_ip}, verify=False)
+    l.client.get("/checkout/"+randomNum()+"?apikey="+appkey ,headers={"User-Agent":  random.choice(agents),"X-Forwarded-For": final_ip})
 def checkoutPost(l):
-    l.client.post("/checkout?apikey="+appkey,{"cart":"this is a new cart"} ,headers={"User-Agent":  random.choice(agents),"X-Forwarded-For": final_ip}, verify=False)
+    l.client.post("/checkout?apikey="+appkey,{"cart":"this is a new cart"} ,headers={"User-Agent":  random.choice(agents),"X-Forwarded-For": final_ip})
 
 #Loyalty functions
 
 def loyaltyGetList(l):
-    l.client.get("/loyalty?apikey="+appkey ,headers={"User-Agent":  random.choice(agents),"X-Forwarded-For": final_ip}, verify=False)
+    l.client.get("/loyalty?apikey="+appkey ,headers={"User-Agent":  random.choice(agents),"X-Forwarded-For": final_ip})
 def loyaltyGet(l):
-    l.client.get("/loyalty/"+randomNum()+"?apikey="+appkey ,headers={"User-Agent":  random.choice(agents),"X-Forwarded-For": final_ip}, verify=False)
+    l.client.get("/loyalty/"+randomNum()+"?apikey="+appkey ,headers={"User-Agent":  random.choice(agents),"X-Forwarded-For": final_ip})
 def loyaltyPost(l):
-    l.client.post("/loyalty?apikey="+appkey,{"loyalty":"this is a new loyalty"} ,headers={"User-Agent":  random.choice(agents),"X-Forwarded-For": final_ip}, verify=False)
+    l.client.post("/loyalty?apikey="+appkey,{"loyalty":"this is a new loyalty"} ,headers={"User-Agent":  random.choice(agents),"X-Forwarded-For": final_ip})
 
 #Loyalty functions
 
 def recommendationGetList(l):
-    l.client.get("/recommendation?apikey="+appkey ,headers={"User-Agent":  random.choice(agents),"X-Forwarded-For": final_ip}, verify=False)
+    l.client.get("/recommendation?apikey="+appkey ,headers={"User-Agent":  random.choice(agents),"X-Forwarded-For": final_ip})
 def recommendationGet(l):
-    l.client.get("/recommendation/"+randomNum()+"?apikey="+appkey ,headers={"User-Agent":  random.choice(agents),"X-Forwarded-For": final_ip}, verify=False)
+    l.client.get("/recommendation/"+randomNum()+"?apikey="+appkey ,headers={"User-Agent":  random.choice(agents),"X-Forwarded-For": final_ip})
 def recommendationPost(l):
-    l.client.post("/recommendation?apikey="+appkey,returnPayload() ,headers={"User-Agent":  random.choice(agents),"X-Forwarded-For": final_ip}, verify=False)
+    l.client.post("/recommendation?apikey="+appkey,returnPayload() ,headers={"User-Agent":  random.choice(agents),"X-Forwarded-For": final_ip})
 
 #Loyalty functions
 
 def userGetList(l):
-    l.client.get("/user?apikey="+appkey ,headers={"User-Agent":  random.choice(agents),"X-Forwarded-For": final_ip}, verify=False)
+    l.client.get("/user?apikey="+appkey ,headers={"User-Agent":  random.choice(agents),"X-Forwarded-For": final_ip})
 def userGet(l):
-    l.client.get("/user/"+randomNum()+"?apikey="+appkey ,headers={"User-Agent":  random.choice(agents),"X-Forwarded-For": final_ip}, verify=False)
+    l.client.get("/user/"+randomNum()+"?apikey="+appkey ,headers={"User-Agent":  random.choice(agents),"X-Forwarded-For": final_ip})
 def userPost(l):
-    l.client.post("/user?apikey="+appkey,returnPayload() ,headers={"User-Agent":  random.choice(agents),"X-Forwarded-For": final_ip}, verify=False)
+    l.client.post("/user?apikey="+appkey,returnPayload() ,headers={"User-Agent":  random.choice(agents),"X-Forwarded-For": final_ip})
 
 
 class UserBehavior(TaskSet):
 
     def on_start(self):
-        self.client.verify = False
         starting(self)
 
     print("This is the final user: " + final_user)

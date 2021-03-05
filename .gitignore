@@ -4,7 +4,7 @@
 /load-generator/consumers/Dockerfile*
 /load-generator/consumers/Dockerfile.back
 /load-generator/consumers/_pycache_/*
-/load-generator/consumers/_pycache_/
+/load-generator/consumers/__pycache__/
 /load-generator/start.sh
 /load-generator/stop.sh
 /load-generator/test.sh
