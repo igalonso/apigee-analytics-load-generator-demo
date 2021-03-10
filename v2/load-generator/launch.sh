@@ -70,26 +70,26 @@ cp config.json.template config.json
 sed -i "s/<environment>/$APIGEE_ENV/g" config.json
 sed -i "s/<gproject>/$GPROJECT_APIGEE/g" config.json
 mvn install -Ptest -Dorg=$APIGEE_ORG -Denv=$APIGEE_ENV -Dbearer=$GCLOUD_APIGEE_TOKEN
-# cd ../Load-Generator-Checkout
-# cp config.json.template config.json
-# sed -i "s/<environment>/$APIGEE_ENV/g" config.json
-# sed -i "s/<gproject>/$GPROJECT_APIGEE/g" config.json
-# mvn install -Ptest -Dorg=$APIGEE_ORG -Denv=$APIGEE_ENV -Dbearer=$GCLOUD_APIGEE_TOKEN
-# cd ../Load-Generator-Loyalty
-# cp config.json.template config.json
-# sed -i "s/<environment>/$APIGEE_ENV/g" config.json
-# sed -i "s/<gproject>/$GPROJECT_APIGEE/g" config.json
-# mvn install -Ptest -Dorg=$APIGEE_ORG -Denv=$APIGEE_ENV -Dbearer=$GCLOUD_APIGEE_TOKEN
-# cd ../Load-Generator-Recommendation
-# cp config.json.template config.json
-# sed -i "s/<environment>/$APIGEE_ENV/g" config.json
-# sed -i "s/<gproject>/$GPROJECT_APIGEE/g" config.json
-# mvn install -Ptest -Dorg=$APIGEE_ORG -Denv=$APIGEE_ENV -Dbearer=$GCLOUD_APIGEE_TOKEN
-# cd ../Load-Generator-User
-# cp config.json.template config.json
-# sed -i "s/<environment>/$APIGEE_ENV/g" config.json
-# sed -i "s/<gproject>/$GPROJECT_APIGEE/g" config.json
-# mvn install -Ptest -Dorg=$APIGEE_ORG -Denv=$APIGEE_ENV -Dbearer=$GCLOUD_APIGEE_TOKEN
+cd ../Load-Generator-Checkout
+cp config.json.template config.json
+sed -i "s/<environment>/$APIGEE_ENV/g" config.json
+sed -i "s/<gproject>/$GPROJECT_APIGEE/g" config.json
+mvn install -Ptest -Dorg=$APIGEE_ORG -Denv=$APIGEE_ENV -Dbearer=$GCLOUD_APIGEE_TOKEN
+cd ../Load-Generator-Loyalty
+cp config.json.template config.json
+sed -i "s/<environment>/$APIGEE_ENV/g" config.json
+sed -i "s/<gproject>/$GPROJECT_APIGEE/g" config.json
+mvn install -Ptest -Dorg=$APIGEE_ORG -Denv=$APIGEE_ENV -Dbearer=$GCLOUD_APIGEE_TOKEN
+cd ../Load-Generator-Recommendation
+cp config.json.template config.json
+sed -i "s/<environment>/$APIGEE_ENV/g" config.json
+sed -i "s/<gproject>/$GPROJECT_APIGEE/g" config.json
+mvn install -Ptest -Dorg=$APIGEE_ORG -Denv=$APIGEE_ENV -Dbearer=$GCLOUD_APIGEE_TOKEN
+cd ../Load-Generator-User
+cp config.json.template config.json
+sed -i "s/<environment>/$APIGEE_ENV/g" config.json
+sed -i "s/<gproject>/$GPROJECT_APIGEE/g" config.json
+mvn install -Ptest -Dorg=$APIGEE_ORG -Denv=$APIGEE_ENV -Dbearer=$GCLOUD_APIGEE_TOKEN
 
 
 #Deploy products
