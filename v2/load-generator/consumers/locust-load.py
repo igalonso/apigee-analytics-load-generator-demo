@@ -79,7 +79,6 @@ url_metadata = "http://metadata.google.internal/computeMetadata/v1/instance/name
 
 r = requests.get(url = url_metadata,headers={'Metadata-Flavor': 'Google'})
 data = r.content
-print("We are in: " + str(data, 'utf-8'))
 data = str(data, 'utf-8')
 request_region = data.split("v2-load-locust-")[1]
 # request_region="v2-load-locust-us-east1-324242"
@@ -116,14 +115,9 @@ elif region9 in request_region:
 else:
     raise Exception
 
-print("This is it: ")
-print(apigee_org)
-
-print(apigee_url+"developers/"+final_user)
 app = requests.get(url = apigee_url+"developers/"+final_user,headers={'Authorization': "Bearer "+token})
 
 
-print("This is my app: " +str(app))
 apiKey = requests.get(url = apigee_url+"developers/"+final_user+"/apps/"+app.json()['apps'][0],headers={'Authorization': "Bearer "+token})
 appkey = apiKey.json()['credentials'][0]['consumerKey']
 
@@ -189,7 +183,6 @@ class UserBehavior(TaskSet):
     def on_start(self):
         starting(self)
 
-    print("This is the final user: " + final_user)
     if final_user == europewest1:
         tasks = {loyaltyGetList: 1, loyaltyGet: 5,loyaltyPost: 1, recommendationGet: 3, recommendationPost: 2, recommendationGetList: 7, userPost: 1, userGet: 5, userPost: 1, checkoutGet: 3, checkoutGetList:1, checkoutPost: 5, catalogGet: 8, catalogGetList: 3, catalogPost: 1}
     elif final_user == europenorth1:
@@ -210,7 +203,6 @@ class UserBehavior(TaskSet):
         tasks = {loyaltyGetList: 1, loyaltyGet: 5,loyaltyPost: 1, recommendationGet: 3, recommendationPost: 2, recommendationGetList: 7, userGet: 6, userPost: 1}
 
 class WebsiteUser(HttpLocust):
-    print("This is")
     task_set = UserBehavior
     min_wait=5000
     max_wait=9000
