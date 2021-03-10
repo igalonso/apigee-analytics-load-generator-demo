@@ -81,8 +81,8 @@ r = requests.get(url = url_metadata,headers={'Metadata-Flavor': 'Google'})
 data = r.content
 print("We are in: " + str(data, 'utf-8'))
 data = str(data, 'utf-8')
-request_region = data.split("load-locust-")[1]
-# request_region="load-locust-us-east1-324242"
+request_region = data.split("v2-load-locust-")[1]
+# request_region="v2-load-locust-us-east1-324242"
 # final_user = "dandee@enterprise.com"
 # final_ip = "194.59.249.171"
 
