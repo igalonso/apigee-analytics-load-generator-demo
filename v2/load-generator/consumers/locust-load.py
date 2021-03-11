@@ -1,6 +1,7 @@
 import random
 import requests
 import os
+import json
 from locust import HttpLocust, TaskSet
 
 
@@ -28,28 +29,7 @@ userAgent12 = 'Mozilla/5.0 (iPhone; CPU iPhone OS 12_2 like Mac OS X) AppleWebKi
 
 agents = [userAgent1,userAgent10,userAgent11,userAgent12,userAgent2,userAgent3,userAgent4,userAgent5,userAgent6,userAgent7,userAgent8,userAgent9]
 
-# mapping regions - developers
-
-#  [1] asia-east1
-#  [2] asia-northeast1
-#  [3] europe-north1
-#  [4] europe-west1
-#  [5] europe-west4
-#  [6] us-central1
-#  [7] us-east1
-#  [8] us-east4
-#  [9] us-west1
-
-region1 = "europe-west1"
-region2 = "europe-north1"
-region3 = "us-central1" 
-region4 = "asia-northeast1" 
-region5 = "us-east1" 
-region6 = "us-east4" 
-region7 = "us-west1" 
-region8 = "asia-east1" 
-region9 = "europe-west4"
-
+# IPs
 ip1 = "2.58.116.34"
 ip2 = "5.249.224.34"
 ip3 = "198.245.66.112"
@@ -60,66 +40,99 @@ ip7 = "161.149.146.201"
 ip8 = "23.248.160.34"
 ip9 = "194.59.249.171"
 
-europewest1 = "dandee@enterprise.com" # Admin
-europenorth1 = "grant@enterprise.com" # Consumer
-uscentral1 = "petsell@wrong.com" # Catalog
-asianortheast1 = "hugh@startkaleo.com" # Consumer
-useast1 = "tomjones@enterprise.com" # Catalog
-useast4 = "joew@bringiton.com" # Catalog & consumer
-uswest1 = "acop@enterprise.com" # Catalog
-asiaeast1 = "barbg@enterprise.com" # Store & shopping
-europewest4 = "freds@bringiton.com" # Consumer
+ips = [ip1,ip2,ip3,ip4,ip5,ip6,ip7,ip8,ip9]
 
-                
+#Developers
+dandee = "dandee@enterprise.com" # Admin - All APIs
+grant = "grant@enterprise.com" # Consumer - Recommendation, User, Loyalty
+petsell = "petsell@wrong.com" # Catalog - Catalog
+hugh = "hugh@startkaleo.com" # Consumer - Recommendation, User, Loyalty
+tomjones = "tomjones@enterprise.com" # Catalog - Catalog
+joew = "joew@bringiton.com" # Catalog & consumer, Catalog, Recommendation, User, Loyalty
+acop = "acop@enterprise.com" # Catalog - Catalog
+barbg = "barbg@enterprise.com" # Store & shopping - Catalog, Recommendation, Checkout, Catalog
+freds = "freds@bringiton.com" # Consumer - Recommendation, User, Loyalty
+
+def retrieveApiKeyFromDeveloper(developer):
+    app = requests.get(url = apigee_url+"developers/"+developer,headers={'Authorization': "Bearer "+token})
+    apiKey = requests.get(url = apigee_url+"developers/"+developer+"/apps/"+app.json()['apps'][0],headers={'Authorization': "Bearer "+token})
+    appkey = apiKey.json()['credentials'][0]['consumerKey']
+    return appkey
+
+apps = { "apps": 
+    [
+        {
+            "developer": dandee,
+            "apis": ["catalog","recommendation","user","loyalty","checkout"],
+            "weight": 1,
+            "apikey": retrieveApiKeyFromDeveloper(dandee) 
+        },
+        {
+            "developer": grant,
+            "apis": ["recommendation","user","loyalty"],
+            "weight": 4,
+            "apikey": retrieveApiKeyFromDeveloper(grant)
+        },
+        {
+            "developer": petsell,
+            "apis": ["catalog"],
+            "weight": 5,
+            "apikey": retrieveApiKeyFromDeveloper(petsell)
+        },
+        {
+            "developer": hugh,
+            "apis": ["recommendation","user","loyalty"],
+            "weight": 3,
+            "apikey": retrieveApiKeyFromDeveloper(hugh)
+        },
+        {
+            "developer": tomjones,
+            "apis": ["catalog"],
+            "weight": 6,
+            "apikey": retrieveApiKeyFromDeveloper(tomjones)
+        },
+        {
+            "developer": joew,
+            "apis": ["catalog","recommendation","user","loyalty"],
+            "weight": 2,
+            "apikey": retrieveApiKeyFromDeveloper(joew)
+        },
+        {
+            "developer": acop,
+            "apis": ["catalog"],
+            "weight": 8,
+            "apikey": retrieveApiKeyFromDeveloper(acop)
+        },
+        {
+            "developer": barbg,
+            "apis": ["catalog","recommendation","loyalty","checkout"],
+            "weight": 3,
+            "apikey": retrieveApiKeyFromDeveloper(barbg)
+        },
+        {
+            "developer": freds,
+            "apis": ["recommendation","user","loyalty"],
+            "weight": 3,
+            "apikey": retrieveApiKeyFromDeveloper(freds)
+        }
+        
+    ]
+}
+
+def selectRandomApp(resource):
+    json_apps=json.loads(json.dumps(apps))["apps"]
+    selected_apps = []
+    for temp_app in json_apps:
+        for api in temp_app["apis"]:
+            if (api == resource):
+                i=0
+                while i < temp_app["weight"]:
+                    selected_apps.append(temp_app["apikey"])
+                    i +=1
+                break
+    return random.choice(selected_apps)
 
 
-
-url_metadata = "http://metadata.google.internal/computeMetadata/v1/instance/name"
-
-
-r = requests.get(url = url_metadata,headers={'Metadata-Flavor': 'Google'})
-data = r.content
-data = str(data, 'utf-8')
-request_region = data.split("v2-load-locust-")[1]
-# request_region="v2-load-locust-us-east1-324242"
-# final_user = "dandee@enterprise.com"
-# final_ip = "194.59.249.171"
-
-if region1 in request_region:
-    final_user=europewest1
-    final_ip=ip1
-elif region2 in request_region:
-    final_user=europenorth1
-    final_ip=ip2
-elif region3 in request_region:
-    final_user=uscentral1
-    final_ip=ip3
-elif region4 in request_region:
-    final_user=asianortheast1
-    final_ip=ip4
-elif region5 in request_region:
-    final_user=useast1
-    final_ip=ip5
-elif region6 in request_region:
-    final_user=useast4
-    final_ip=ip6
-elif region7 in request_region:
-    final_user=uswest1
-    final_ip=ip7
-elif region8 in request_region:
-    final_user=asiaeast1
-    final_ip=ip8
-elif region9 in request_region:
-    final_user=europewest4
-    final_ip=ip9
-else:
-    raise Exception
-
-app = requests.get(url = apigee_url+"developers/"+final_user,headers={'Authorization': "Bearer "+token})
-
-
-apiKey = requests.get(url = apigee_url+"developers/"+final_user+"/apps/"+app.json()['apps'][0],headers={'Authorization': "Bearer "+token})
-appkey = apiKey.json()['credentials'][0]['consumerKey']
 
 def randomNum():
     return str(random.randint(1,6))
@@ -135,47 +148,47 @@ def starting(l):
 
 #Catalog functions
 def catalogGetList(l):
-    l.client.get("/catalog?apikey="+appkey ,headers={"User-Agent":  random.choice(agents),"X-Forwarded-For": final_ip})
+    l.client.get("/catalog?apikey="+selectRandomApp("catalog") ,headers={"Load-Generator-Version": "2.1","User-Agent":  random.choice(agents),"X-Forwarded-For": random.choice(ips)})
 def catalogGet(l):
-    l.client.get("/catalog/"+randomNum()+"?apikey="+appkey ,headers={"User-Agent":  random.choice(agents),"X-Forwarded-For": final_ip})
+    l.client.get("/catalog/"+randomNum()+"?apikey="+selectRandomApp("catalog") ,headers={"Load-Generator-Version": "2.1","User-Agent":  random.choice(agents),"X-Forwarded-For": random.choice(ips)})
 def catalogPost(l):
-    l.client.post("/catalog?apikey="+appkey,{"product":"this is a new product"} ,headers={"User-Agent":  random.choice(agents),"X-Forwarded-For": final_ip})
+    l.client.post("/catalog?apikey="+selectRandomApp("catalog"),{"product":"this is a new product"} ,headers={"Load-Generator-Version": "2.1","User-Agent":  random.choice(agents),"X-Forwarded-For": random.choice(ips)})
 
 #Checkout functions
 
 def checkoutGetList(l):
-    l.client.get("/checkout?apikey="+appkey ,headers={"User-Agent":  random.choice(agents),"X-Forwarded-For": final_ip})
+    l.client.get("/checkout?apikey="+selectRandomApp("checkout") ,headers={"Load-Generator-Version": "2.1","User-Agent":  random.choice(agents),"X-Forwarded-For": random.choice(ips)})
 def checkoutGet(l):
-    l.client.get("/checkout/"+randomNum()+"?apikey="+appkey ,headers={"User-Agent":  random.choice(agents),"X-Forwarded-For": final_ip})
+    l.client.get("/checkout/"+randomNum()+"?apikey="+selectRandomApp("checkout") ,headers={"Load-Generator-Version": "2.1","User-Agent":  random.choice(agents),"X-Forwarded-For": random.choice(ips)})
 def checkoutPost(l):
-    l.client.post("/checkout?apikey="+appkey,{"cart":"this is a new cart"} ,headers={"User-Agent":  random.choice(agents),"X-Forwarded-For": final_ip})
+    l.client.post("/checkout?apikey="+selectRandomApp("checkout"),{"cart":"this is a new cart"} ,headers={"Load-Generator-Version": "2.1","User-Agent":  random.choice(agents),"X-Forwarded-For": random.choice(ips)})
 
 #Loyalty functions
 
 def loyaltyGetList(l):
-    l.client.get("/loyalty?apikey="+appkey ,headers={"User-Agent":  random.choice(agents),"X-Forwarded-For": final_ip})
+    l.client.get("/loyalty?apikey="+selectRandomApp("loyalty") ,headers={"Load-Generator-Version": "2.1","User-Agent":  random.choice(agents),"X-Forwarded-For": random.choice(ips)})
 def loyaltyGet(l):
-    l.client.get("/loyalty/"+randomNum()+"?apikey="+appkey ,headers={"User-Agent":  random.choice(agents),"X-Forwarded-For": final_ip})
+    l.client.get("/loyalty/"+randomNum()+"?apikey="+selectRandomApp("loyalty") ,headers={"Load-Generator-Version": "2.1","User-Agent":  random.choice(agents),"X-Forwarded-For": random.choice(ips)})
 def loyaltyPost(l):
-    l.client.post("/loyalty?apikey="+appkey,{"loyalty":"this is a new loyalty"} ,headers={"User-Agent":  random.choice(agents),"X-Forwarded-For": final_ip})
+    l.client.post("/loyalty?apikey="+selectRandomApp("loyalty"),{"loyalty":"this is a new loyalty"} ,headers={"Load-Generator-Version": "2.1","User-Agent":  random.choice(agents),"X-Forwarded-For": random.choice(ips)})
 
 #Loyalty functions
 
 def recommendationGetList(l):
-    l.client.get("/recommendation?apikey="+appkey ,headers={"User-Agent":  random.choice(agents),"X-Forwarded-For": final_ip})
+    l.client.get("/recommendation?apikey="+selectRandomApp("recommendation") ,headers={"Load-Generator-Version": "2.1","User-Agent":  random.choice(agents),"X-Forwarded-For": random.choice(ips)})
 def recommendationGet(l):
-    l.client.get("/recommendation/"+randomNum()+"?apikey="+appkey ,headers={"User-Agent":  random.choice(agents),"X-Forwarded-For": final_ip})
+    l.client.get("/recommendation/"+randomNum()+"?apikey="+selectRandomApp("recommendation") ,headers={"Load-Generator-Version": "2.1","User-Agent":  random.choice(agents),"X-Forwarded-For": random.choice(ips)})
 def recommendationPost(l):
-    l.client.post("/recommendation?apikey="+appkey,returnPayload() ,headers={"User-Agent":  random.choice(agents),"X-Forwarded-For": final_ip})
+    l.client.post("/recommendation?apikey="+selectRandomApp("recommendation"),returnPayload() ,headers={"Load-Generator-Version": "2.1","User-Agent":  random.choice(agents),"X-Forwarded-For": random.choice(ips)})
 
 #Loyalty functions
 
 def userGetList(l):
-    l.client.get("/user?apikey="+appkey ,headers={"User-Agent":  random.choice(agents),"X-Forwarded-For": final_ip})
+    l.client.get("/user?apikey="+selectRandomApp("user") ,headers={"Load-Generator-Version": "2.1","User-Agent":  random.choice(agents),"X-Forwarded-For": random.choice(ips)})
 def userGet(l):
-    l.client.get("/user/"+randomNum()+"?apikey="+appkey ,headers={"User-Agent":  random.choice(agents),"X-Forwarded-For": final_ip})
+    l.client.get("/user/"+randomNum()+"?apikey="+selectRandomApp("user") ,headers={"Load-Generator-Version": "2.1","User-Agent":  random.choice(agents),"X-Forwarded-For": random.choice(ips)})
 def userPost(l):
-    l.client.post("/user?apikey="+appkey,returnPayload() ,headers={"User-Agent":  random.choice(agents),"X-Forwarded-For": final_ip})
+    l.client.post("/user?apikey="+selectRandomApp("user"),returnPayload() ,headers={"Load-Generator-Version": "2.1","User-Agent":  random.choice(agents),"X-Forwarded-For": random.choice(ips)})
 
 
 class UserBehavior(TaskSet):
@@ -183,25 +196,22 @@ class UserBehavior(TaskSet):
     def on_start(self):
         starting(self)
 
-    if final_user == europewest1:
-        tasks = {loyaltyGetList: 1, loyaltyGet: 5,loyaltyPost: 1, recommendationGet: 3, recommendationPost: 2, recommendationGetList: 7, userPost: 1, userGet: 5, userPost: 1, checkoutGet: 3, checkoutGetList:1, checkoutPost: 5, catalogGet: 8, catalogGetList: 3, catalogPost: 1}
-    elif final_user == europenorth1:
-        tasks = {loyaltyGetList: 1, loyaltyGet: 5,loyaltyPost: 1, recommendationGet: 3, recommendationPost: 2, recommendationGetList: 7, userGet: 6, userPost: 1}
-    elif final_user == uscentral1:
-        tasks = {catalogGet: 8, catalogGetList: 3,catalogPost: 1}
-    elif final_user == asianortheast1:
-        tasks = {loyaltyGetList: 8, loyaltyGet: 3,loyaltyPost: 1, recommendationGet: 7, recommendationPost: 2, recommendationGetList: 7, userGet: 5, userPost: 1}
-    elif final_user == useast1:
-        tasks = {catalogGet: 8, catalogGetList: 3,catalogPost: 1}
-    elif final_user == useast4:
-        tasks = {catalogGet: 8, catalogGetList: 3,catalogPost: 1, loyaltyGetList: 3, loyaltyGet: 3,loyaltyPost: 1, recommendationGet: 7, recommendationPost: 2, recommendationGetList: 7, userGet: 5, userPost: 1}
-    elif final_user == uswest1:
-        tasks = {catalogGet: 8, catalogGetList: 3,catalogPost: 1}
-    elif final_user == asiaeast1:
-        tasks = {catalogGet: 8, catalogGetList: 2,catalogPost: 1, checkoutGet: 3, checkoutGetList:1, checkoutPost: 5, recommendationGet: 7, recommendationPost: 2, recommendationGetList: 7}
-    elif final_user == europewest4:
-        tasks = {loyaltyGetList: 1, loyaltyGet: 5,loyaltyPost: 1, recommendationGet: 3, recommendationPost: 2, recommendationGetList: 7, userGet: 6, userPost: 1}
-
+    tasks = {
+        loyaltyGetList: 1, 
+        loyaltyGet: 5,
+        loyaltyPost: 1, 
+        recommendationGet: 3, 
+        recommendationPost: 2, 
+        recommendationGetList: 7, 
+        userPost: 1, 
+        userGet: 5, 
+        userPost: 1, 
+        checkoutGet: 3, 
+        checkoutGetList:1, 
+        checkoutPost: 5, 
+        catalogGet: 8, 
+        catalogGetList: 3, 
+        catalogPost: 1}
 class WebsiteUser(HttpLocust):
     task_set = UserBehavior
     min_wait=5000

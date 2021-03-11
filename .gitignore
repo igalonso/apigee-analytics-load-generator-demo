@@ -18,6 +18,7 @@
 /v2/load-generator/proxies/*/config.json.backup
 /v2/load-generator-key*
 /v2/test.py
+*test.py
 /v2/start*
 /v2/stop*
 */.DS_Store
