@@ -20,6 +20,7 @@
 /v2/test.py
 /v2/start*
 /v2/stop*
+*/.DS_Store
  
 /v1/load-generator/proxies/get-proxies.sh
 /v1/load-generator/proxies/Load-Generator-Catalog/target/*
