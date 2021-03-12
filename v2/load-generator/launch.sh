@@ -17,25 +17,6 @@ gcloud auth activate-service-account \
         --key-file=../load-generator-key.json --project=$GPROJECT_GCP
 
 folder=$PWD
-if [ $DEPLOYMENT == "all" ] || [ $DEPLOYMENT == "gcp" ]; then
-        #Building docker image
-        cd $folder
-        cd consumers
-        cp Dockerfile_template Dockerfile
-        sed -i "s/GCP_TOKEN/$GCLOUD_APIGEE_TOKEN/g" Dockerfile
-        sed -i "s/APIGEE_ORG/$APIGEE_ORG/g" Dockerfile
-        sed -i "s/APIGEE_ENV/$APIGEE_ENV/g" Dockerfile
-        sed -i "s/HOST/$APIGEE_URL/g" Dockerfile
-        sed -i "s/HOST/$WORKLOAD_LEVEL/g" Dockerfile
-
-        # Deploying Locust instances
-        gcloud config set project $GPROJECT_GCP
-        gcloud services enable cloudbuild.googleapis.com compute.googleapis.com storage.googleapis.com storage-api.googleapis.com   
-        gcloud builds submit --tag gcr.io/$GPROJECT_GCP/load-test
-        gcloud compute addresses create $(echo "v2-1-load-locust-ip-"$RAND) --region europe-west2
-        ADDR=$(gcloud compute addresses describe v2-1-load-locust-ip-$(echo $RAND) --region europe-west2 --format json | jq -r '.address')
-        gcloud compute instances create-with-container $(echo "v2-1-load-locust-"$RAND) --machine-type=e2-standard-2 --container-image gcr.io/$GPROJECT_GCP/load-test --address $ADDR --zone europe-west2-b 
-fi
 if [ $DEPLOYMENT == "all" ] || [ $DEPLOYMENT == "apigee" ]; then
         #Deploy target servers
         cd $folder
@@ -95,6 +76,26 @@ if [ $DEPLOYMENT == "all" ] || [ $DEPLOYMENT == "apigee" ]; then
         sed -i "s/<environment>/$APIGEE_ENV/g" edge.json
         mvn install -Ptest -Dorg=$APIGEE_ORG -Denv=$APIGEE_ENV -Dbearer=$GCLOUD_APIGEE_TOKEN -Dapigee.config.options=create
 fi
+if [ $DEPLOYMENT == "all" ] || [ $DEPLOYMENT == "gcp" ]; then
+        #Building docker image
+        cd $folder
+        cd consumers
+        cp Dockerfile_template Dockerfile
+        sed -i "s/GCP_TOKEN/$GCLOUD_APIGEE_TOKEN/g" Dockerfile
+        sed -i "s/APIGEE_ORG/$APIGEE_ORG/g" Dockerfile
+        sed -i "s/APIGEE_ENV/$APIGEE_ENV/g" Dockerfile
+        sed -i "s/HOST/$APIGEE_URL/g" Dockerfile
+        sed -i "s/HOST/$WORKLOAD_LEVEL/g" Dockerfile
+
+        # Deploying Locust instances
+        gcloud config set project $GPROJECT_GCP
+        gcloud services enable cloudbuild.googleapis.com compute.googleapis.com storage.googleapis.com storage-api.googleapis.com   
+        gcloud builds submit --tag gcr.io/$GPROJECT_GCP/load-test
+        gcloud compute addresses create $(echo "v2-1-load-locust-ip-"$RAND) --region europe-west2
+        ADDR=$(gcloud compute addresses describe v2-1-load-locust-ip-$(echo $RAND) --region europe-west2 --format json | jq -r '.address')
+        gcloud compute instances create-with-container $(echo "v2-1-load-locust-"$RAND) --machine-type=e2-standard-2 --container-image gcr.io/$GPROJECT_GCP/load-test --address $ADDR --zone europe-west2-b 
+fi
+
 
 
 
