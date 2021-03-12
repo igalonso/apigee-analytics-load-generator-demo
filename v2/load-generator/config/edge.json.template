@@ -192,7 +192,7 @@
         "developerApps": {
             "hugh@startkaleo.com": [
                 {
-                    "name": "coolhughapp",
+                    "name": "coolhughapp-v2",
                     "apiProducts": [
                         "Load-Generator-Product-Consumer"
                     ],
@@ -202,7 +202,7 @@
             ],
             "grant@enterprise.com": [
                 {
-                    "name": "consummera",
+                    "name": "consummera-v2",
                     "apiProducts": [
                         "Load-Generator-Product-Consumer"
                     ],
@@ -212,7 +212,7 @@
             ],
             "petsell@wrong.com": [
                 {
-                    "name": "showmeapp",
+                    "name": "showmeapp-v2",
                     "apiProducts": [
                         "Load-Generator-Product-Catalog"
                     ],
@@ -222,7 +222,7 @@
             ],
             "tomjones@enterprise.com": [
                 {
-                    "name": "mysupermarketprices",
+                    "name": "mysupermarketprices-v2",
                     "apiProducts": [
                         "Load-Generator-Product-Catalog"
                     ],
@@ -232,7 +232,7 @@
             ],
             "joew@bringiton.com": [
                 {
-                    "name": "thegreatprice",
+                    "name": "thegreatprice-v2",
                     "apiProducts": [
                         "Load-Generator-Product-Catalog",
                         "Load-Generator-Product-Consumer"
@@ -243,7 +243,7 @@
             ],
             "acop@enterprise.com": [
                 {
-                    "name": "freshnew",
+                    "name": "freshnew-v2",
                     "apiProducts": [
                         "Load-Generator-Product-Catalog"
                     ],
@@ -253,7 +253,7 @@
             ],
             "barbg@enterprise.com": [
                 {
-                    "name": "mystoreaggregator",
+                    "name": "mystoreaggregator-v2",
                     "apiProducts": [
                         "Load-Generator-Product-Store",
                         "Load-Generator-Product-Shopping"
@@ -264,7 +264,7 @@
             ],
             "dandee@enterprise.com": [
                 {
-                    "name": "myadminapp-done",
+                    "name": "myadminapp-done-v2",
                     "apiProducts": [
                         "Load-Generator-Product-Admin"
                     ],
@@ -274,7 +274,7 @@
             ],
             "freds@bringiton.com": [
                 {
-                    "name": "internalretail",
+                    "name": "internalretail-v2",
                     "apiProducts": [
                         "Load-Generator-Product-Consumer"
                     ],

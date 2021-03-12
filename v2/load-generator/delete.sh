@@ -16,25 +16,8 @@ gcloud auth activate-service-account \
         --key-file=../load-generator-key.json --project=$GPROJECT_GCP
 #Deleting GCP Stuff
 echo "----------Deleting v2-load-locust instances"
-gcloud compute instances delete $(echo "v2-load-locust-asia-east1-"$RAND) --zone europe-west2-b --quiet &
-gcloud compute instances delete $(echo "v2-load-locust-asia-northeast1-"$RAND) --zone europe-west2-b --quiet &
-gcloud compute instances delete $(echo "v2-load-locust-europe-north1-"$RAND) --zone europe-west2-b --quiet &
-gcloud compute instances delete $(echo "v2-load-locust-europe-west1-"$RAND) --zone europe-west2-b --quiet &
-gcloud compute instances delete $(echo "v2-load-locust-us-central1-"$RAND) --zone europe-west2-b --quiet &
-gcloud compute instances delete $(echo "v2-load-locust-us-east1-"$RAND) --zone europe-west2-b  --quiet &
-gcloud compute instances delete $(echo "v2-load-locust-us-east4-"$RAND) --zone europe-west2-b --quiet &
-gcloud compute instances delete $(echo "v2-load-locust-us-west1-"$RAND) --zone europe-west2-b --quiet &
-gcloud compute instances delete $(echo "v2-load-locust-europe-west4-"$RAND) --zone europe-west2-b --quiet
-
-gcloud compute addresses delete $(echo "v2-load-locust-asia-east1-ip-"$RAND) --region europe-west2 --quiet
-gcloud compute addresses delete $(echo "v2-load-locust-asia-northeast1-ip-"$RAND) --region europe-west2 --quiet
-gcloud compute addresses delete $(echo "v2-load-locust-europe-north1-ip-"$RAND) --region europe-west2 --quiet
-gcloud compute addresses delete $(echo "v2-load-locust-europe-west1-ip-"$RAND) --region europe-west2 --quiet
-gcloud compute addresses delete $(echo "v2-load-locust-us-central1-ip-"$RAND) --region europe-west2 --quiet
-gcloud compute addresses delete $(echo "v2-load-locust-us-east1-ip-"$RAND) --region europe-west2 --quiet
-gcloud compute addresses delete $(echo "v2-load-locust-us-east4-ip-"$RAND) --region europe-west2 --quiet
-gcloud compute addresses delete $(echo "v2-load-locust-us-west1-ip-"$RAND) --region europe-west2 --quiet
-gcloud compute addresses delete $(echo "v2-load-locust-europe-west4-ip-"$RAND) --region europe-west2 --quiet
+gcloud compute instances delete $(echo "v2-1-load-locust-"$RAND) --zone europe-west2-b --quiet &
+gcloud compute addresses delete $(echo "v2-1-load-locust-ip-"$RAND) --region europe-west2 --quiet
 
 
 # DELETING APIGEE's STUFF
