@@ -14,7 +14,7 @@ This code will spin an instance, deploy assets to Apigee X or Hybrid and , using
 ```
 export GCLOUDTOKEN=$(gcloud auth print-access-token)
 
-sh init.sh --action launch --apigee-token $GCLOUDTOKEN --apigee-org APIGEE_ORG --apigee-env APIGEE_ENV --gcp-apigee-project GPROJECT_APIGEE --gcp-project GPROJECT_GCP  --appengine APPENGINE --apigee-url APIGEE_URL --appengine-domain APPENGINE_DOMAIN_NAME --gcp-svc-account-email GCP_SVC_ACCOUNT_EMAIL --uuid RANDOM_NUMBER --deployment ```(gcp || apigee || all)``` --workload-level ```(high || medium || low)```
+sh init.sh --action launch --apigee-token $GCLOUDTOKEN --apigee-org APIGEE_ORG --apigee-env APIGEE_ENV --gcp-apigee-project GPROJECT_APIGEE --gcp-project GPROJECT_GCP  --appengine APPENGINE --apigee-url APIGEE_URL --appengine-domain APPENGINE_DOMAIN_NAME --gcp-svc-account-email GCP_SVC_ACCOUNT_EMAIL --uuid RANDOM_NUMBER --deployment (gcp || apigee || all) --workload-level (high || medium || low)
 ```
 
 * **--action**: ```launch``` to start the load generator or ```delete``` to remove the load generator
@@ -56,7 +56,7 @@ Within the project folder (*apigee-analytics-load-generator-demo*), execute the 
 ```
 export GCLOUDTOKEN=$(gcloud auth print-access-token/v2)
 
-sh init.sh --action delete --apigee-token $GCLOUDTOKEN --apigee-org APIGEE_ORG --apigee-env APIGEE_ENV --gcp-apigee-project GPROJECT_APIGEE --gcp-project GPROJECT_GCP  --appengine APPENGINE --apigee-url APIGEE_URL --appengine-domain APPENGINE_DOMAIN_NAME --gcp-svc-account-email GCP_SVC_ACCOUNT_EMAIL --uuid RANDOM_NUMBER --deployment ```(gcp || apigee || all)``` --workload-level ```(high || medium || low)```
+sh init.sh --action delete --apigee-token $GCLOUDTOKEN --apigee-org APIGEE_ORG --apigee-env APIGEE_ENV --gcp-apigee-project GPROJECT_APIGEE --gcp-project GPROJECT_GCP  --appengine APPENGINE --apigee-url APIGEE_URL --appengine-domain APPENGINE_DOMAIN_NAME --gcp-svc-account-email GCP_SVC_ACCOUNT_EMAIL --uuid RANDOM_NUMBER --deployment (gcp || apigee || all) --workload-level (high || medium || low)
 ```
 
 * **--action**: ```launch``` to start the load generator or ```delete``` to remove the load generator
