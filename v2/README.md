@@ -49,7 +49,7 @@ sh init.sh --action launch --apigee-token $GCLOUDTOKEN --apigee-org APIGEE_ORG -
 
 6. Delete the service account and key to avoid security breaches.
 
-# Delete demo
+## Delete demo
 
 Within the project folder (*apigee-analytics-load-generator-demo*), execute the following command:
 
