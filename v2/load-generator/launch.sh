@@ -85,7 +85,7 @@ if [ $DEPLOYMENT == "all" ] || [ $DEPLOYMENT == "gcp" ]; then
         sed -i "s/APIGEE_ORG/$APIGEE_ORG/g" Dockerfile
         sed -i "s/APIGEE_ENV/$APIGEE_ENV/g" Dockerfile
         sed -i "s/HOST/$APIGEE_URL/g" Dockerfile
-        sed -i "s/HOST/$WORKLOAD_LEVEL/g" Dockerfile
+        sed -i "s/WORKLOAD_LEVEL/$WORKLOAD_LEVEL/g" Dockerfile
 
         # Deploying Locust instances
         gcloud config set project $GPROJECT_GCP

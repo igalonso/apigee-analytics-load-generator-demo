@@ -3,11 +3,9 @@ APIGEE_ORG=$2
 APIGEE_ENV=$3
 HOST=$4
 WORKLOAD_LEVEL=$5
-concurrent=8
-requests=9
 if [ $WORKLOAD_LEVEL = "high" ]; then
     concurrent=15
-    requests=15
+    requests=20
 fi
 if [ $WORKLOAD_LEVEL = "medium" ]; then
     concurrent=8
