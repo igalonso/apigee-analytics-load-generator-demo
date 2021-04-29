@@ -31,7 +31,7 @@ sh init.sh --action launch --apigee-token $GCLOUDTOKEN --apigee-org APIGEE_ORG -
 
 * **--appengine**: Google Cloud App Engine app name that will be used.
 
-* **--apigee-url**: Apigee URL for the specific environment group.
+* **--apigee-url**: Apigee Full Qualified Hostname for the specific environment group.
 
 * **--appengine-domain**: Domain name for your backends.
 

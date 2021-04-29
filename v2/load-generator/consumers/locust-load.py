@@ -194,6 +194,7 @@ def userPost(l):
 class UserBehavior(TaskSet):
 
     def on_start(self):
+        self.client.verify = False
         starting(self)
 
     tasks = {

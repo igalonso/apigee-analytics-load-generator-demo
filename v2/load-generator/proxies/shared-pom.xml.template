@@ -94,7 +94,7 @@
         <profile>
             <id><environment></id>
             <properties>
-                <apigee.profile>test</apigee.profile>
+                <apigee.profile><environment></apigee.profile>
                 <apigee.hosturl>https://apigee.googleapis.com</apigee.hosturl>
                 <apigee.apiversion>v1</apigee.apiversion>
                 <apigee.org>${org}</apigee.org>
