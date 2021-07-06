@@ -5,31 +5,31 @@
             "targetServers": [
               {
                   "name": "Load-Generator-Catalog-Target",
-                  "host": "catalog.loadgenerator.<domain>",
+                  "host": "catalog<domain>",
                   "isEnabled": true,
                   "port": 80                
               },
               {
                   "name": "Load-Generator-Checkout-Target",
-                  "host": "checkout.loadgenerator.<domain>",
+                  "host": "checkout<domain>",
                   "isEnabled": true,
                   "port": 80 
               },
               {
                   "name": "Load-Generator-Loyalty-Target",
-                  "host": "loyalty.loadgenerator.<domain>",
+                  "host": "loyalty<domain>",
                   "isEnabled": true,
                   "port": 80 
               },
               {
                   "name": "Load-Generator-Users-Target",
-                  "host": "users.loadgenerator.<domain>",
+                  "host": "users<domain>",
                   "isEnabled": true,
                   "port": 80 
               },
               {
                   "name": "Load-Generator-Recommendation-Target",
-                  "host": "recommendation.loadgenerator.<domain>",
+                  "host": "recommendation<domain>",
                   "isEnabled": true,
                   "port": 80 
               }

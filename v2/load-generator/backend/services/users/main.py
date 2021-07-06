@@ -2,14 +2,25 @@
 import random
 
 from user import *
+import time
+
 from flask import Flask
+from flask import abort, jsonify
+from flask import request
+from opencensus.ext.flask.flask_middleware import FlaskMiddleware
+from opencensus.ext.stackdriver.trace_exporter import StackdriverExporter
+from opencensus.trace import execution_context
+from opencensus.trace.propagation import google_cloud_format
+from opencensus.trace.samplers import AlwaysOnSampler
 
 
 
 # If `entrypoint` is not defined in app.yaml, App Engine will look for an app
 # called `app` in `main.py`.
 app = Flask(__name__)
-
+@app.errorhandler(404)
+def resource_not_found(e):
+    return jsonify(error=str(e)), 404
 #Customer service
 @app.route('/user',methods=['GET', 'POST'])
 def customers():
@@ -18,7 +29,11 @@ def customers():
 @app.route('/user/<int:id>')
 def customer(id):
     """Return a friendly HTTP greeting."""
-    return getUsers(id)
+    obj=getUsers(id)
+    if obj == False:
+        abort(404, description="Resource not found")
+    else:
+        return obj
 
 
 if __name__ == '__main__':

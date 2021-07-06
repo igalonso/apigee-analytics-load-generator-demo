@@ -4,20 +4,36 @@ APIGEE_ORG=$2
 APIGEE_ENV=$3
 GPROJECT_APIGEE=$4
 GPROJECT_GCP=$5
-APPENGINE=$6
-APIGEE_URL=$7
-APPENGINE_DOMAIN_NAME=$8
-GCP_SVC_ACCOUNT_EMAIL=$9
-RAND=${10}
-WORKLOAD_LEVEL=${11}
-DEPLOYMENT=${12}
+APIGEE_URL=$6
+RAND=${7}
+WORKLOAD_LEVEL=${8}
+DEPLOYMENT=${9}
 
-echo "Authorizing"
+GCP_SVC_ACCOUNT_EMAIL=$(cat ../load-generator-key.json | jq -r .client_email)
 gcloud auth activate-service-account \
         $GCP_SVC_ACCOUNT_EMAIL \
         --key-file=../load-generator-key.json --project=$GPROJECT_GCP
-echo "End authorizing"
 folder=$PWD
+if [ $DEPLOYMENT == "all" ] || [ $DEPLOYMENT == "backends" ]; then
+        cd $folder
+        gcloud config set project $GPROJECT_GCP
+        gcloud app create --region europe-west2
+        echo "---->DEPLOYING BACKENDS<-------"
+        cd backend/services
+        gcloud config list
+        cd default
+        gcloud app deploy app.yaml --project $GPROJECT_GCP --promote --quiet
+        cd ../catalog
+        gcloud app deploy app.yaml --project $GPROJECT_GCP --promote --quiet
+        cd ../checkout
+        gcloud app deploy app.yaml --project $GPROJECT_GCP --promote --quiet
+        cd ../loyalty
+        gcloud app deploy app.yaml --project $GPROJECT_GCP --promote --quiet
+        cd ../recommendation
+        gcloud app deploy app.yaml --project $GPROJECT_GCP --promote --quiet
+        cd ../users
+        gcloud app deploy app.yaml --project $GPROJECT_GCP --promote --quiet
+fi
 if [ $DEPLOYMENT == "all" ] || [ $DEPLOYMENT == "apigee" ]; then
         #Deploy target servers
         cd $folder
@@ -32,7 +48,8 @@ if [ $DEPLOYMENT == "all" ] || [ $DEPLOYMENT == "apigee" ]; then
         cp shared-pom.xml.template shared-pom.xml
         sed -i "s/<environment>/$APIGEE_ENV/g" shared-pom.xml
         cp edge.json.template edge.json
-        sed -i "s/<domain>/$APPENGINE_DOMAIN_NAME/g" edge.json
+        DOMAIN_SERVICE=$(gcloud app services browse catalog --no-launch-browser --format json | jq -r .[].url | cut -d'-' -f 2,3,4,5,6,7,8,9,10,11,12,13,14)
+        sed -i "s/<domain>/-$DOMAIN_SERVICE/g" edge.json
         sed -i "s/<environment>/$APIGEE_ENV/g" edge.json
         mvn install -P$APIGEE_ENV -Dorg=$APIGEE_ORG -Denv=$APIGEE_ENV -Dbearer=$GCLOUD_APIGEE_TOKEN -Dapigee.config.options=create
 
@@ -42,7 +59,6 @@ if [ $DEPLOYMENT == "all" ] || [ $DEPLOYMENT == "apigee" ]; then
         cd proxies
         cp shared-pom.xml.template shared-pom.xml
         sed -i "s/<environment>/$APIGEE_ENV/g" shared-pom.xml
-        echo $PWD
         cd Load-Generator-Catalog
         sed -i "s/<environment>/$APIGEE_ENV/g" shared-pom.xml
         cp config.json.template config.json
@@ -75,10 +91,11 @@ if [ $DEPLOYMENT == "all" ] || [ $DEPLOYMENT == "apigee" ]; then
         echo "---->DEPLOYING PRODUCTS, DEVELOPERS AND APPS<-------"
         cd $folder
         cd config
-        echo $PWD
-        sed -i "s/<domain>/$APPENGINE_DOMAIN_NAME/g" edge.json
         sed -i "s/<environment>/$APIGEE_ENV/g" edge.json
         mvn install -P$APIGEE_ENV -Dorg=$APIGEE_ORG -Denv=$APIGEE_ENV -Dbearer=$GCLOUD_APIGEE_TOKEN -Dapigee.config.options=create
+
+        #enabling distributed tracing
+        curl -H "Authorization: Bearer $GCLOUD_APIGEE_TOKEN" -H "Content-Type: application/json" https://apigee.googleapis.com/v1/organizations/$APIGEE_ORG/environments/$APIGEE_ENV/traceConfig -X PATCH -d '{"exporter": "CLOUD_TRACE","endpoint": "$GPROJECT_APIGEE","samplingConfig": {"sampler": "PROBABILITY","samplingRate": 0.5}}'
 fi
 if [ $DEPLOYMENT == "all" ] || [ $DEPLOYMENT == "gcp" ]; then
         #Building docker image
@@ -99,6 +116,7 @@ if [ $DEPLOYMENT == "all" ] || [ $DEPLOYMENT == "gcp" ]; then
         ADDR=$(gcloud compute addresses describe v2-1-load-locust-ip-$(echo $RAND) --region europe-west2 --format json | jq -r '.address')
         gcloud compute instances create-with-container $(echo "v2-1-load-locust-"$RAND) --machine-type=e2-standard-2 --container-image gcr.io/$GPROJECT_GCP/load-test --address $ADDR --zone europe-west2-b 
 fi
+
 
 
 

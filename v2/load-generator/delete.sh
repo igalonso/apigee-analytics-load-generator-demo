@@ -4,15 +4,13 @@ APIGEE_ORG=$2
 APIGEE_ENV=$3
 GPROJECT_APIGEE=$4
 GPROJECT_GCP=$5
-APPENGINE=$6
-APIGEE_URL=$7
-APPENGINE_DOMAIN_NAME=$8
-GCP_SVC_ACCOUNT_EMAIL=$9
-RAND=${10}
-WORKLOAD_LEVEL=${11}
-DEPLOYMENT=${12}
+APIGEE_URL=$6
+RAND=${7}
+WORKLOAD_LEVEL=${8}
+DEPLOYMENT=${9}
 
 gcloud config set project $GPROJECT_GCP
+GCP_SVC_ACCOUNT_EMAIL=$(cat ../load-generator-key.json | jq -r .client_email)
 gcloud auth activate-service-account \
         $GCP_SVC_ACCOUNT_EMAIL \
         --key-file=../load-generator-key.json --project=$GPROJECT_GCP
@@ -23,6 +21,15 @@ if [ $DEPLOYMENT == "all" ] || [ $DEPLOYMENT == "gcp" ]; then
     echo "----------Deleting v2-load-locust instances"
     gcloud compute instances delete $(echo "v2-1-load-locust-"$RAND) --zone europe-west2-b --quiet &
     gcloud compute addresses delete $(echo "v2-1-load-locust-ip-"$RAND) --region europe-west2 --quiet
+fi 
+if [ $DEPLOYMENT == "all" ] || [ $DEPLOYMENT == "backends" ]; then
+    echo "----------Deleting backends------------"
+    gcloud app services delete catalog users recommendation loyalty checkout --quiet
+    versions=$(gcloud app versions list --format json | jq -r ".[].id")
+    for version in $versions; do
+        gcloud app versions delete $version --quiet
+    done
+
 fi
 if [ $DEPLOYMENT == "all" ] || [ $DEPLOYMENT == "apigee" ]; then
     # DELETING APIGEE's STUFF
@@ -53,17 +60,47 @@ if [ $DEPLOYMENT == "all" ] || [ $DEPLOYMENT == "apigee" ]; then
 
 
     echo "----------Deleting deployments"
-    curl --silent -X DELETE --header "Authorization: Bearer $GCLOUD_APIGEE_TOKEN" "$APIGEE_MNGMT_URL/environments/$APIGEE_ENV/apis/Load-Generator-Catalog/revisions/1/deployments"
-    curl --silent -X DELETE --header "Authorization: Bearer $GCLOUD_APIGEE_TOKEN" "$APIGEE_MNGMT_URL/environments/$APIGEE_ENV/apis/Load-Generator-Users/revisions/1/deployments"
-    curl --silent -X DELETE --header "Authorization: Bearer $GCLOUD_APIGEE_TOKEN" "$APIGEE_MNGMT_URL/environments/$APIGEE_ENV/apis/Load-Generator-Recommendation/revisions/1/deployments"
-    curl --silent -X DELETE --header "Authorization: Bearer $GCLOUD_APIGEE_TOKEN" "$APIGEE_MNGMT_URL/environments/$APIGEE_ENV/apis/Load-Generator-Loyalty/revisions/1/deployments"
-    curl --silent -X DELETE --header "Authorization: Bearer $GCLOUD_APIGEE_TOKEN" "$APIGEE_MNGMT_URL/environments/$APIGEE_ENV/apis/Load-Generator-Checkout/revisions/1/deployments"
+    revisions=$(curl $APIGEE_MNGMT_URL/apis/Load-Generator-Catalog/revisions --header "Authorization: Bearer $GCLOUD_APIGEE_TOKEN")
+    for row in $(echo "${revisions}" | jq -r '.[]'); do
+        curl --silent -X DELETE --header "Authorization: Bearer $GCLOUD_APIGEE_TOKEN" "$APIGEE_MNGMT_URL/environments/$APIGEE_ENV/apis/Load-Generator-Catalog/revisions/$row/deployments"
+    done
+    revisions=$(curl $APIGEE_MNGMT_URL/apis/Load-Generator-Users/revisions --header "Authorization: Bearer $GCLOUD_APIGEE_TOKEN")
+    for row in $(echo "${revisions}" | jq -r '.[]'); do
+        curl --silent -X DELETE --header "Authorization: Bearer $GCLOUD_APIGEE_TOKEN" "$APIGEE_MNGMT_URL/environments/$APIGEE_ENV/apis/Load-Generator-Users/revisions/$row/deployments"
+    done
+    revisions=$(curl $APIGEE_MNGMT_URL/apis/Load-Generator-Recommendation/revisions --header "Authorization: Bearer $GCLOUD_APIGEE_TOKEN")
+    for row in $(echo "${revisions}" | jq -r '.[]'); do
+        curl --silent -X DELETE --header "Authorization: Bearer $GCLOUD_APIGEE_TOKEN" "$APIGEE_MNGMT_URL/environments/$APIGEE_ENV/apis/Load-Generator-Recommendation/revisions/$row/deployments"
+    done
+    revisions=$(curl $APIGEE_MNGMT_URL/apis/Load-Generator-Loyalty/revisions --header "Authorization: Bearer $GCLOUD_APIGEE_TOKEN")
+    for row in $(echo "${revisions}" | jq -r '.[]'); do
+        curl --silent -X DELETE --header "Authorization: Bearer $GCLOUD_APIGEE_TOKEN" "$APIGEE_MNGMT_URL/environments/$APIGEE_ENV/apis/Load-Generator-Loyalty/revisions/$row/deployments"
+    done
+    revisions=$(curl $APIGEE_MNGMT_URL/apis/Load-Generator-Checkout/revisions --header "Authorization: Bearer $GCLOUD_APIGEE_TOKEN")
+    for row in $(echo "${revisions}" | jq -r '.[]'); do
+        curl --silent -X DELETE --header "Authorization: Bearer $GCLOUD_APIGEE_TOKEN" "$APIGEE_MNGMT_URL/environments/$APIGEE_ENV/apis/Load-Generator-Checkout/revisions/$row/deployments"
+    done
     echo "----------Deleting revision proxies"
-    curl --silent -X DELETE --header "Authorization: Bearer $GCLOUD_APIGEE_TOKEN" "$APIGEE_MNGMT_URL/apis/Load-Generator-Catalog/revisions/1"
-    curl --silent -X DELETE --header "Authorization: Bearer $GCLOUD_APIGEE_TOKEN" "$APIGEE_MNGMT_URL/apis/Load-Generator-Recommendation/revisions/1"
-    curl --silent -X DELETE --header "Authorization: Bearer $GCLOUD_APIGEE_TOKEN" "$APIGEE_MNGMT_URL/apis/Load-Generator-Users/revisions/1"
-    curl --silent -X DELETE --header "Authorization: Bearer $GCLOUD_APIGEE_TOKEN" "$APIGEE_MNGMT_URL/apis/Load-Generator-Loyalty/revisions/1"
-    curl --silent -X DELETE --header "Authorization: Bearer $GCLOUD_APIGEE_TOKEN" "$APIGEE_MNGMT_URL/apis/Load-Generator-Checkout/revisions/1"
+    revisions=$(curl $APIGEE_MNGMT_URL/apis/Load-Generator-Catalog/revisions --header "Authorization: Bearer $GCLOUD_APIGEE_TOKEN")
+    for row in $(echo "${revisions}" | jq -r '.[]'); do
+        curl --silent -X DELETE --header "Authorization: Bearer $GCLOUD_APIGEE_TOKEN" "$APIGEE_MNGMT_URL/apis/Load-Generator-Catalog/revisions/$row"
+    done
+    revisions=$(curl $APIGEE_MNGMT_URL/apis/Load-Generator-Recommendation/revisions --header "Authorization: Bearer $GCLOUD_APIGEE_TOKEN")
+    for row in $(echo "${revisions}" | jq -r '.[]'); do
+        curl --silent -X DELETE --header "Authorization: Bearer $GCLOUD_APIGEE_TOKEN" "$APIGEE_MNGMT_URL/apis/Load-Generator-Recommendation/revisions/$row"
+    done
+    revisions=$(curl $APIGEE_MNGMT_URL/apis/Load-Generator-Users/revisions --header "Authorization: Bearer $GCLOUD_APIGEE_TOKEN")
+    for row in $(echo "${revisions}" | jq -r '.[]'); do
+        curl --silent -X DELETE --header "Authorization: Bearer $GCLOUD_APIGEE_TOKEN" "$APIGEE_MNGMT_URL/apis/Load-Generator-Users/revisions/$row"
+    done
+    revisions=$(curl $APIGEE_MNGMT_URL/apis/Load-Generator-Loyalty/revisions --header "Authorization: Bearer $GCLOUD_APIGEE_TOKEN")
+    for row in $(echo "${revisions}" | jq -r '.[]'); do
+        curl --silent -X DELETE --header "Authorization: Bearer $GCLOUD_APIGEE_TOKEN" "$APIGEE_MNGMT_URL/apis/Load-Generator-Loyalty/revisions/$row"
+    done
+    revisions=$(curl $APIGEE_MNGMT_URL/apis/Load-Generator-Checkout/revisions --header "Authorization: Bearer $GCLOUD_APIGEE_TOKEN")
+    for row in $(echo "${revisions}" | jq -r '.[]'); do
+        curl --silent -X DELETE --header "Authorization: Bearer $GCLOUD_APIGEE_TOKEN" "$APIGEE_MNGMT_URL/apis/Load-Generator-Checkout/revisions/$row"
+    done
 
 
     echo "----------Deleting proxies"

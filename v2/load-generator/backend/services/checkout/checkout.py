@@ -210,7 +210,7 @@ def getCheckout(id):
                 "checkoutState":"cart"
             }
     else:
-        return Exception
+        return False
     if sleepTime == id:
         print("sleeping")
         time.sleep (random.randint(0,7))

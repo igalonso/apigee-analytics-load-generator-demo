@@ -99,20 +99,8 @@ if [ -z "$GPROJECT_GCP" ]; then
     ERROR_PARAMETER="--gcp-project"
     
 fi
-if [ -z "$APPENGINE" ]; then
-    ERROR_PARAMETER="--appengine"
-    
-fi
 if [ -z "$APIGEE_URL" ]; then
     ERROR_PARAMETER="--apigee-url"
-    
-fi
-if [ -z "$APPENGINE_DOMAIN_NAME" ]; then
-    ERROR_PARAMETER="--appengine-domain"
-    
-fi
-if [ -z "$GCP_SVC_ACCOUNT_EMAIL" ]; then
-    ERROR_PARAMETER="--gcp-svc-account-email"
     
 fi
 if [ -z "$RAND" ]; then
@@ -131,9 +119,7 @@ echo "INIT --> Apigee Org: $APIGEE_ORG"
 echo "INIT --> Apigee Env: $APIGEE_ENV"
 echo "INIT --> GCP Apigee Project: $GPROJECT_APIGEE"
 echo "INIT --> GCP Project: $GPROJECT_GCP"
-echo "INIT --> AppEngine Project: $APPENGINE"
 echo "INIT --> Apigee Url: $APIGEE_URL"
-echo "INIT --> AppEngine Domain: $APPENGINE_DOMAIN_NAME"
 echo "INIT --> GCP Serv Domain: $GCP_SVC_ACCOUNT_EMAIL"
 echo "INIT --> UUID: $RAND"
 echo "INIT --> What to deployment: $DEPLOYMENT"
@@ -149,10 +135,7 @@ docker run \
     --env APIGEE_ENV=$APIGEE_ENV\
     --env GPROJECT_APIGEE=$GPROJECT_APIGEE\
     --env GPROJECT_GCP=$GPROJECT_GCP \
-    --env APPENGINE=$APPENGINE \
     --env APIGEE_URL=$APIGEE_URL \
-    --env APPENGINE_DOMAIN_NAME=$APPENGINE_DOMAIN_NAME \
-    --env GCP_SVC_ACCOUNT_EMAIL=$GCP_SVC_ACCOUNT_EMAIL \
     --env RAND=$RAND \
     --env DEPLOYMENT=$DEPLOYMENT \
     --env WORKLOAD_LEVEL=$WORKLOAD_LEVEL \
