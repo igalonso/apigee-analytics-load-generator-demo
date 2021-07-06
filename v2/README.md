@@ -14,7 +14,7 @@ This code will spin an instance, deploy assets to Apigee X or Hybrid and , using
 ```
 export GCLOUDTOKEN=$(gcloud auth print-access-token)
 
-sh init.sh --action launch --apigee-token $GCLOUDTOKEN --apigee-org APIGEE_ORG --apigee-env APIGEE_ENV --gcp-apigee-project GPROJECT_APIGEE --gcp-project GPROJECT_GCP  --appengine APPENGINE --apigee-url APIGEE_URL --appengine-domain APPENGINE_DOMAIN_NAME --gcp-svc-account-email GCP_SVC_ACCOUNT_EMAIL --uuid RANDOM_NUMBER --deployment (gcp || apigee || all) --workload-level (high || medium || low)
+sh init.sh --action launch --apigee-token $GCLOUDTOKEN --apigee-org APIGEE_ORG --apigee-env APIGEE_ENV --gcp-apigee-project GPROJECT_APIGEE --gcp-project GPROJECT_GCP --apigee-url APIGEE_URL --uuid RANDOM_NUMBER --deployment (gcp || apigee || backends || all) --workload-level (high || medium || low)
 ```
 
 * **--action**: ```launch``` to start the load generator or ```delete``` to remove the load generator
@@ -27,27 +27,19 @@ sh init.sh --action launch --apigee-token $GCLOUDTOKEN --apigee-org APIGEE_ORG -
 
 * **--gcp-apigee-project**: Google Cloud Project ID where Apigee X or Hybrid resides.
 
-* **--gcp-project**: Google Cloud Project ID where the VMs will be deployed to.
-
-* **--appengine**: Google Cloud App Engine app name that will be used.
+* **--gcp-project**: Google Cloud Project ID where the VMs and backends will be deployed to.
 
 * **--apigee-url**: Apigee Full Qualified Hostname for the specific environment group.
 
-* **--appengine-domain**: Domain name for your backends.
-
-* **--gcp-svc-account-email**: Service account email used for the deployment of VMs.
-
 * **--uuid**: Random number that you will need to remember (to support multiple instances of this demo within the same org) in order to delete this deployment afterwards..
 
-* **--deployment**: What do you want to deploy or undeploy? Values ```all```, ```gcp``` or ```apigee```
+* **--deployment**: What do you want to deploy or undeploy? Values ```all```, ```gcp```, ```backends``` or ```apigee```
 
 * **--workload-level**: How much traffic you want to send? Values ```medium```, ```low``` or ```high```
 
 4. Wait! It should deploy everything and provide a reliable traffic pattern to your Apigee organization.
 
-5. Update your domain on appengine following [this](https://cloud.google.com/appengine/docs/standard/python/mapping-custom-domains) guide
-
-6. Delete the service account and key to avoid security breaches.
+5. Delete the service account and key to avoid security breaches.
 
 ## Delete demo
 
@@ -56,7 +48,7 @@ Within the project folder (*apigee-analytics-load-generator-demo*), execute the 
 ```
 export GCLOUDTOKEN=$(gcloud auth print-access-token/v2)
 
-sh init.sh --action delete --apigee-token $GCLOUDTOKEN --apigee-org APIGEE_ORG --apigee-env APIGEE_ENV --gcp-apigee-project GPROJECT_APIGEE --gcp-project GPROJECT_GCP  --appengine APPENGINE --apigee-url APIGEE_URL --appengine-domain APPENGINE_DOMAIN_NAME --gcp-svc-account-email GCP_SVC_ACCOUNT_EMAIL --uuid RANDOM_NUMBER --deployment (gcp || apigee || all) --workload-level (high || medium || low)
+sh init.sh --action delete --apigee-token $GCLOUDTOKEN --apigee-org APIGEE_ORG --apigee-env APIGEE_ENV --gcp-apigee-project GPROJECT_APIGEE --gcp-project GPROJECT_GCP  --apigee-url APIGEE_URL --uuid RANDOM_NUMBER --deployment (gcp || apigee || all) --workload-level (high || medium || low)
 ```
 
 * **--action**: ```launch``` to start the load generator or ```delete``` to remove the load generator

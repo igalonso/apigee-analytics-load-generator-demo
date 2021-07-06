@@ -35,7 +35,7 @@ def getTotalLoyaltyPoints(id):
             "transaction_id":"234099-324234-4324532"
         }
     else:
-        return Exception
+        return False
     if sleepTime == id:
         print("sleeping")
         time.sleep (random.randint(0,7))
