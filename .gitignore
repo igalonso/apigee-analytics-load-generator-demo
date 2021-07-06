@@ -18,11 +18,12 @@
 /v2/load-generator/proxies/*/config.json.backup
 /v2/load-generator-key*
 /v2/test.py
+/v2/test.sh
 *test.py
-/v2/start*
-/v2/stop*
+/v2/start.sh
+/v2/stop.sh
 */.DS_Store
- 
+/v2/load-generator/backend/services/dispatch.yaml
 /v1/load-generator/proxies/get-proxies.sh
 /v1/load-generator/proxies/Load-Generator-Catalog/target/*
 /v1/load-generator/proxies/Load-Generator-Catalog/target
