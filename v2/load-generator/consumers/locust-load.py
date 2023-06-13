@@ -2,7 +2,8 @@ import random
 import requests
 import os
 import json
-from locust import HttpLocust, TaskSet
+import time
+from locust import HttpUser, task, between
 
 
 
@@ -143,60 +144,64 @@ def returnPayload():
     else:
         return {"content":"something"}
 
-def starting(l):
-    print("Starting load")
-
-#Catalog functions
-def catalogGetList(l):
-    l.client.get("/catalog?apikey="+selectRandomApp("catalog") ,headers={"Load-Generator-Version": "2.1","User-Agent":  random.choice(agents),"X-Forwarded-For": random.choice(ips)})
-def catalogGet(l):
-    l.client.get("/catalog/"+randomNum()+"?apikey="+selectRandomApp("catalog") ,headers={"Load-Generator-Version": "2.1","User-Agent":  random.choice(agents),"X-Forwarded-For": random.choice(ips)})
-def catalogPost(l):
-    l.client.post("/catalog?apikey="+selectRandomApp("catalog"),{"product":"this is a new product"} ,headers={"Load-Generator-Version": "2.1","User-Agent":  random.choice(agents),"X-Forwarded-For": random.choice(ips)})
-
-#Checkout functions
-
-def checkoutGetList(l):
-    l.client.get("/checkout?apikey="+selectRandomApp("checkout") ,headers={"Load-Generator-Version": "2.1","User-Agent":  random.choice(agents),"X-Forwarded-For": random.choice(ips)})
-def checkoutGet(l):
-    l.client.get("/checkout/"+randomNum()+"?apikey="+selectRandomApp("checkout") ,headers={"Load-Generator-Version": "2.1","User-Agent":  random.choice(agents),"X-Forwarded-For": random.choice(ips)})
-def checkoutPost(l):
-    l.client.post("/checkout?apikey="+selectRandomApp("checkout"),{"cart":"this is a new cart"} ,headers={"Load-Generator-Version": "2.1","User-Agent":  random.choice(agents),"X-Forwarded-For": random.choice(ips)})
-
-#Loyalty functions
-
-def loyaltyGetList(l):
-    l.client.get("/loyalty?apikey="+selectRandomApp("loyalty") ,headers={"Load-Generator-Version": "2.1","User-Agent":  random.choice(agents),"X-Forwarded-For": random.choice(ips)})
-def loyaltyGet(l):
-    l.client.get("/loyalty/"+randomNum()+"?apikey="+selectRandomApp("loyalty") ,headers={"Load-Generator-Version": "2.1","User-Agent":  random.choice(agents),"X-Forwarded-For": random.choice(ips)})
-def loyaltyPost(l):
-    l.client.post("/loyalty?apikey="+selectRandomApp("loyalty"),{"loyalty":"this is a new loyalty"} ,headers={"Load-Generator-Version": "2.1","User-Agent":  random.choice(agents),"X-Forwarded-For": random.choice(ips)})
-
-#Loyalty functions
-
-def recommendationGetList(l):
-    l.client.get("/recommendation?apikey="+selectRandomApp("recommendation") ,headers={"Load-Generator-Version": "2.1","User-Agent":  random.choice(agents),"X-Forwarded-For": random.choice(ips)})
-def recommendationGet(l):
-    l.client.get("/recommendation/"+randomNum()+"?apikey="+selectRandomApp("recommendation") ,headers={"Load-Generator-Version": "2.1","User-Agent":  random.choice(agents),"X-Forwarded-For": random.choice(ips)})
-def recommendationPost(l):
-    l.client.post("/recommendation?apikey="+selectRandomApp("recommendation"),returnPayload() ,headers={"Load-Generator-Version": "2.1","User-Agent":  random.choice(agents),"X-Forwarded-For": random.choice(ips)})
-
-#Loyalty functions
-
-def userGetList(l):
-    l.client.get("/user?apikey="+selectRandomApp("user") ,headers={"Load-Generator-Version": "2.1","User-Agent":  random.choice(agents),"X-Forwarded-For": random.choice(ips)})
-def userGet(l):
-    l.client.get("/user/"+randomNum()+"?apikey="+selectRandomApp("user") ,headers={"Load-Generator-Version": "2.1","User-Agent":  random.choice(agents),"X-Forwarded-For": random.choice(ips)})
-def userPost(l):
-    l.client.post("/user?apikey="+selectRandomApp("user"),returnPayload() ,headers={"Load-Generator-Version": "2.1","User-Agent":  random.choice(agents),"X-Forwarded-For": random.choice(ips)})
 
 
-class UserBehavior(TaskSet):
+class MyUser(HttpUser):
 
-    def on_start(self):
-        self.client.verify = False
-        starting(self)
+ 
+    def catalogGetList(self):
+        url = "/catalog/"+randomNum()+"?apikey="+selectRandomApp("catalog")
+        response = self.client.get(url,headers={"Load-Generator-Version": "2.1","User-Agent":  random.choice(agents),"X-Forwarded-For": random.choice(ips)}, verify=False)
+        time.sleep(1)
+  
+    def catalogGet(self):
+        self.client.get("/catalog/"+randomNum()+"?apikey="+selectRandomApp("catalog") ,headers={"Load-Generator-Version": "2.1","User-Agent":  random.choice(agents),"X-Forwarded-For": random.choice(ips)}, verify=False)
+  
+    def catalogPost(self):
+        self.client.post("/catalog?apikey="+selectRandomApp("catalog"),{"product":"this is a new product"} ,headers={"Load-Generator-Version": "2.1","User-Agent":  random.choice(agents),"X-Forwarded-For": random.choice(ips)}, verify=False)
 
+    #Checkout functions
+  
+    def checkoutGetList(l):
+        l.client.get("/checkout?apikey="+selectRandomApp("checkout") ,headers={"Load-Generator-Version": "2.1","User-Agent":  random.choice(agents),"X-Forwarded-For": random.choice(ips)}, verify=False)
+        time.sleep(1)
+   
+    def checkoutGet(l):
+        l.client.get("/checkout/"+randomNum()+"?apikey="+selectRandomApp("checkout") ,headers={"Load-Generator-Version": "2.1","User-Agent":  random.choice(agents),"X-Forwarded-For": random.choice(ips)}, verify=False)
+    
+    def checkoutPost(l):
+        l.client.post("/checkout?apikey="+selectRandomApp("checkout"),{"cart":"this is a new cart"} ,headers={"Load-Generator-Version": "2.1","User-Agent":  random.choice(agents),"X-Forwarded-For": random.choice(ips)}, verify=False)
+
+    #Loyalty functions
+   
+    def loyaltyGetList(l):
+        l.client.get("/loyalty?apikey="+selectRandomApp("loyalty") ,headers={"Load-Generator-Version": "2.1","User-Agent":  random.choice(agents),"X-Forwarded-For": random.choice(ips)}, verify=False)
+        time.sleep(1)
+    
+    def loyaltyGet(l):
+        l.client.get("/loyalty/"+randomNum()+"?apikey="+selectRandomApp("loyalty") ,headers={"Load-Generator-Version": "2.1","User-Agent":  random.choice(agents),"X-Forwarded-For": random.choice(ips)}, verify=False)
+    def loyaltyPost(l):
+        l.client.post("/loyalty?apikey="+selectRandomApp("loyalty"),{"loyalty":"this is a new loyalty"} ,headers={"Load-Generator-Version": "2.1","User-Agent":  random.choice(agents),"X-Forwarded-For": random.choice(ips)}, verify=False)
+
+    #Loyalty functions
+
+    def recommendationGetList(l):
+        l.client.get("/recommendation?apikey="+selectRandomApp("recommendation") ,headers={"Load-Generator-Version": "2.1","User-Agent":  random.choice(agents),"X-Forwarded-For": random.choice(ips)}, verify=False)
+        time.sleep(1)
+    def recommendationGet(l):
+        l.client.get("/recommendation/"+randomNum()+"?apikey="+selectRandomApp("recommendation") ,headers={"Load-Generator-Version": "2.1","User-Agent":  random.choice(agents),"X-Forwarded-For": random.choice(ips)}, verify=False)
+    def recommendationPost(l):
+        l.client.post("/recommendation?apikey="+selectRandomApp("recommendation"),returnPayload() ,headers={"Load-Generator-Version": "2.1","User-Agent":  random.choice(agents),"X-Forwarded-For": random.choice(ips)}, verify=False)
+
+    #Loyalty functions
+
+    def userGetList(l):
+        l.client.get("/user?apikey="+selectRandomApp("user") ,headers={"Load-Generator-Version": "2.1","User-Agent":  random.choice(agents),"X-Forwarded-For": random.choice(ips)}, verify=False)
+        time.sleep(1)
+    def userGet(l):
+        l.client.get("/user/"+randomNum()+"?apikey="+selectRandomApp("user") ,headers={"Load-Generator-Version": "2.1","User-Agent":  random.choice(agents),"X-Forwarded-For": random.choice(ips)}, verify=False)
+    def userPost(l):
+        l.client.post("/user?apikey="+selectRandomApp("user"),returnPayload() ,headers={"Load-Generator-Version": "2.1","User-Agent":  random.choice(agents),"X-Forwarded-For": random.choice(ips)}, verify=False)
     tasks = {
         loyaltyGetList: 1, 
         loyaltyGet: 5,
@@ -213,7 +218,7 @@ class UserBehavior(TaskSet):
         catalogGet: 8, 
         catalogGetList: 3, 
         catalogPost: 1}
-class WebsiteUser(HttpLocust):
-    task_set = UserBehavior
-    min_wait=5000
-    max_wait=9000
+    wait_time = between(0.5, 10)    
+
+if __name__ == "__main__":
+    locust.main()

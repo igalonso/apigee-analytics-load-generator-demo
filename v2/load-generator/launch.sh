@@ -114,7 +114,7 @@ if [ $DEPLOYMENT == "all" ] || [ $DEPLOYMENT == "gcp" ]; then
         gcloud builds submit --tag gcr.io/$GPROJECT_GCP/load-test
         gcloud compute addresses create $(echo "v2-1-load-locust-ip-"$RAND) --region europe-west2
         ADDR=$(gcloud compute addresses describe v2-1-load-locust-ip-$(echo $RAND) --region europe-west2 --format json | jq -r '.address')
-        gcloud compute instances create-with-container $(echo "v2-1-load-locust-"$RAND) --machine-type=e2-standard-2 --container-image gcr.io/$GPROJECT_GCP/load-test --address $ADDR --zone europe-west2-b 
+        gcloud compute instances create-with-container $(echo "v2-1-load-locust-"$RAND) --machine-type=e2-standard-2 --container-image gcr.io/$GPROJECT_GCP/load-test --address $ADDR --zone europe-west2-b --subnet=default
 fi
 
 

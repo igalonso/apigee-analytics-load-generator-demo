@@ -15,5 +15,11 @@ if [ $WORKLOAD_LEVEL = "low" ]; then
     concurrent=1
     requests=5
 fi
+if [ $WORKLOAD_LEVEL = "test" ]; then
+    concurrent=1
+    requests=1
+fi
 
-env TOKEN=$GCP_TOKEN APIGEE_ORG=$APIGEE_ORG APIGEE_ENV=$APIGEE_ENV locust --host=https://$HOST/v1 --no-web -c $concurrent -r $requests -f locust-load.py
+echo "Requests: "+ $requests
+echo $concurrent
+env TOKEN=$GCP_TOKEN APIGEE_ORG=$APIGEE_ORG APIGEE_ENV=$APIGEE_ENV locust --host=https://$HOST/v1 --headless -u $concurrent -r $requests -f locust-load.py

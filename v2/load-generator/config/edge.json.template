@@ -49,7 +49,7 @@
                     "Load-Generator-Recommendation",
                     "Load-Generator-Users"
                 ],
-                "quota": "300",
+                "quota": "3000",
                 "quotaInterval": "1",
                 "quotaTimeUnit": "hour",
                 "scopes": []
@@ -71,7 +71,7 @@
                 "proxies": [
                     "Load-Generator-Catalog"
                 ],
-                "quota": "1000",
+                "quota": "10000",
                 "quotaInterval": "1",
                 "quotaTimeUnit": "hour",
                 "scopes": []
@@ -94,7 +94,7 @@
                     "Load-Generator-Checkout",
                     "Load-Generator-Catalog"
                 ],
-                "quota": "50",
+                "quota": "100",
                 "quotaInterval": "1",
                 "quotaTimeUnit": "hour",
                 "scopes": []
